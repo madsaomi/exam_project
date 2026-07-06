@@ -14,3 +14,6 @@ class DishViewSet(viewsets.ModelViewSet):
     queryset = Dish.objects.all()
     serializer_class = DishSerializer
     permission_classes = (IsAdminOrReadOnly,)
+    filterset_fields = ('category', 'is_available')
+    search_fields = ('name', 'description')
+    ordering_fields = ('name', 'price', 'order')
