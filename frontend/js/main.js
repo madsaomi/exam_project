@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------- swap "Log In" for account state ---------- */
   const loginBtn = document.querySelector("[data-login-btn]");
   if (loginBtn && typeof Auth !== "undefined" && Auth.isLoggedIn()) {
-    loginBtn.textContent = "Log Out";
+    loginBtn.textContent = __("logout");
     loginBtn.setAttribute("href", "#");
     loginBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -29,8 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const email = emailInput.value.trim();
       if (!email) return;
       if (msg) {
-        msg.textContent = "Спасибо за подписку! Проверьте почту " + email;
-        msg.style.color = "#fff";
+        msg.textContent = __("newsletterThanks") + email;
       }
       form.reset();
     });

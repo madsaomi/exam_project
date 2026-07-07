@@ -8,22 +8,22 @@
       msg.textContent = "";
       msg.className = "form-msg";
       btn.disabled = true;
-      btn.textContent = "Входим…";
+      btn.textContent = __("loading");
       try {
         const data = await AuthAPI.login({
           username: loginForm.username.value.trim(),
           password: loginForm.password.value,
         });
         Auth.set(data.access, data.refresh);
-        msg.textContent = "Вход выполнен! Перенаправляем…";
+        msg.textContent = __("login") + "...";
         msg.classList.add("ok");
         setTimeout(() => (window.location.href = "index.html"), 700);
       } catch (err) {
-        msg.textContent = err.message || "Неверный логин или пароль.";
+        msg.textContent = err.message || __("password");
         msg.classList.add("err");
       } finally {
         btn.disabled = false;
-        btn.textContent = "Log In";
+        btn.textContent = __("signIn");
       }
     });
   }
@@ -38,28 +38,28 @@
       msg.className = "form-msg";
 
       if (registerForm.password.value !== registerForm.password2.value) {
-        msg.textContent = "Пароли не совпадают.";
+        msg.textContent = __("confirmDelete");
         msg.classList.add("err");
         return;
       }
 
       btn.disabled = true;
-      btn.textContent = "Создаём аккаунт…";
+      btn.textContent = __("loading");
       try {
         await AuthAPI.register({
           username: registerForm.username.value.trim(),
           email: registerForm.email.value.trim(),
           password: registerForm.password.value,
         });
-        msg.textContent = "Аккаунт создан! Теперь можно войти.";
+        msg.textContent = __("registerSuccess");
         msg.classList.add("ok");
         setTimeout(() => (window.location.href = "login.html"), 900);
       } catch (err) {
-        msg.textContent = err.message || "Не удалось зарегистрироваться.";
+        msg.textContent = err.message || __("register").toLowerCase();
         msg.classList.add("err");
       } finally {
         btn.disabled = false;
-        btn.textContent = "Create Account";
+        btn.textContent = __("signUp");
       }
     });
   }
