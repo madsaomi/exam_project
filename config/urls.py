@@ -1,8 +1,16 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.http import FileResponse
+from pathlib import Path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+def portal_view(request):
+    return FileResponse(open(BASE_DIR / 'index.html', 'rb'), content_type='text/html; charset=utf-8')
+
 urlpatterns = [
+    path('', portal_view, name='portal'),
     path('admin/', admin.site.urls),
     path('api/auth/', include('accounts.urls')),
     path('api/menu/', include('menu.urls')),
