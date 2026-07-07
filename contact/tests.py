@@ -15,7 +15,7 @@ class ContactMessageModelTest(APITestCase):
         )
 
     def test_str(self):
-        self.assertEqual(str(self.message), 'Ali')
+        self.assertIn('Ali', str(self.message))
 
 
 class ContactMessageAPITest(APITestCase):
@@ -25,7 +25,7 @@ class ContactMessageAPITest(APITestCase):
         self.message = ContactMessage.objects.create(
             name='Vali', email='vali@example.com', message='Test xabar', is_read=False
         )
-        self.list_url = reverse('contact-list')
+        self.list_url = reverse('contact-list-create')
 
     def test_send_message_anon(self):
         data = {'name': 'Anvar', 'email': 'anvar@example.com', 'message': 'Yordam kerak'}

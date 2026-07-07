@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>London Project — Экзаменационный портал</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  line-height: 1.6;
+}
+
+header {
+  background: #fff;
+  border-bottom: 1px solid #d2d2d7;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1d1d1f;
+}
+
+header h1 span { color: #B31A2C; }
+
+.lang-buttons { display: flex; gap: 6px; }
+
+.lang-buttons button {
+  background: #e8e8ed;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #1d1d1f;
+  transition: .2s;
+}
+
+.lang-buttons button.active {
+  background: #B31A2C;
+  color: #fff;
+}
+
+.lang-buttons button:hover:not(.active) {
+  background: #d2d2d7;
+}
+
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.hero-box {
+  background: #fff;
+  border-radius: 18px;
+  padding: 48px 40px;
+  text-align: center;
+  margin-bottom: 40px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+}
+
+.hero-box h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.hero-box p {
+  font-size: 16px;
+  color: #6e6e73;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero-box .lang-text { margin-top: 12px; }
+.hero-box .lang-text p { margin-top: 4px; font-size: 14px; color: #86868b; }
+.hero-box .lang-text span { color: #B31A2C; font-weight: 600; }
+
+/* ===== info cards ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.card {
+  display: block;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  border: 1px solid #e8e8ed;
+  text-decoration: none;
+  color: inherit;
+  transition: .2s;
+}
+.card:hover { border-color: #B31A2C; transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+
+.card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 14px;
+  color: #6e6e73;
+  margin-bottom: 12px;
+}
+
+.card .links {
+  font-size: 13px;
+}
+
+.card .links a {
+  color: #B31A2C;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.card .links a:hover { text-decoration: underline; }
+
+.card .links .dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.card .links .dot.green { background: #22c55e; }
+.card .links .dot.red { background: #ef4444; }
+.card .links .dot.gray { background: #aeaeb2; }
+
+/* ===== stats ===== */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.stat {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+}
+
+.stat .num {
+  font-size: 32px;
+  font-weight: 800;
+  color: #B31A2C;
+}
+
+.stat .label {
+  font-size: 13px;
+  color: #6e6e73;
+  margin-top: 4px;
+}
+
+/* ===== section titles ===== */
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e8e8ed;
+}
+
+/* ===== table ===== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,.06);
+  margin-bottom: 40px;
+  font-size: 14px;
+}
+
+th {
+  background: #f5f5f7;
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6e6e73;
+  border-bottom: 2px solid #e8e8ed;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e8e8ed;
+  color: #1d1d1f;
+}
+
+tr:last-child td { border-bottom: none; }
+
+tr:hover td { background: #fafafa; }
+
+.method {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.method.get { background: #e8f4fd; color: #0071e3; }
+.method.post { background: #e8f8ee; color: #1d8a4d; }
+.method.put { background: #fef6e8; color: #b86200; }
+.method.delete { background: #fde8e8; color: #c41e1e; }
+
+.url-path { font-family: monospace; font-size: 13px; color: #1d1d1f; }
+
+/* ===== footer ===== */
+footer {
+  border-top: 1px solid #d2d2d7;
+  padding: 24px;
+  text-align: center;
+  font-size: 13px;
+  color: #86868b;
+}
+
+footer a { color: #B31A2C; text-decoration: none; font-weight: 600; }
+footer a:hover { text-decoration: underline; }
+
+/* ===== lang ===== */
+[data-lang] { display: none; }
+[data-lang].active { display: inline; }
+[data-lang].active-block { display: block; }
+[data-lang].active-flex { display: flex; }
+[data-lang].active-grid { display: grid; }
+.lang-text [data-lang] { display: none; }
+.lang-text [data-lang].active { display: inline; }
+
+@media (max-width: 600px) {
+  header { flex-wrap: wrap; gap: 12px; }
+  .hero-box { padding: 32px 20px; }
+  .hero-box h2 { font-size: 22px; }
+  .stats { grid-template-columns: repeat(3, 1fr); }
+  table { font-size: 13px; }
+  th, td { padding: 8px 10px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🍔 LONDON<span>PROJECT</span></h1>
+  <div class="lang-buttons">
+    <button onclick="setLang('ru')" class="active" id="btn-ru">RU</button>
+    <button onclick="setLang('en')" id="btn-en">EN</button>
+    <button onclick="setLang('uz')" id="btn-uz">UZ</button>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<div class="hero-box">
+  <h2 data-lang="ru" class="active-block">🍔 London Grill — Система управления рестораном</h2>
+  <h2 data-lang="en">🍔 London Grill — Restaurant Management System</h2>
+  <h2 data-lang="uz">🍔 London Grill — Restoran boshqaruv tizimi</h2>
+
+  <p data-lang="ru" class="active-block">
+    Экзаменационный проект. Django REST API + JWT авторизация + Swagger документация + Frontend
+  </p>
+  <p data-lang="en">
+    Exam project. Django REST API + JWT Auth + Swagger Docs + Frontend
+  </p>
+  <p data-lang="uz">
+    Imtihon loyihasi. Django REST API + JWT Auth + Swagger + Frontend
+  </p>
+
+  <div class="lang-text" style="margin-top: 16px;">
+    <p data-lang="ru" class="active">
+      <span>Стек:</span> Django 6.0 · DRF 3.17 · SimpleJWT · SQLite · Docker · Nginx · Gunicorn · GitHub CI/CD
+    </p>
+    <p data-lang="en">
+      <span>Stack:</span> Django 6.0 · DRF 3.17 · SimpleJWT · SQLite · Docker · Nginx · Gunicorn · GitHub CI/CD
+    </p>
+    <p data-lang="uz">
+      <span>Stack:</span> Django 6.0 · DRF 3.17 · SimpleJWT · SQLite · Docker · Nginx · Gunicorn · GitHub CI/CD
+    </p>
+  </div>
+</div>
+
+<!-- STATUS -->
+<div class="stats">
+  <div class="stat">
+    <div class="num">8</div>
+    <div class="label label-ru active-block" data-lang="ru">категорий меню</div>
+    <div class="label label-en" data-lang="en">menu categories</div>
+    <div class="label label-uz" data-lang="uz">menyu kategoriyalari</div>
+  </div>
+  <div class="stat">
+    <div class="num">34</div>
+    <div class="label label-ru active-block" data-lang="ru">блюд и напитков</div>
+    <div class="label label-en" data-lang="en">dishes &amp; drinks</div>
+    <div class="label label-uz" data-lang="uz">taom va ichimliklar</div>
+  </div>
+  <div class="stat">
+    <div class="num">5</div>
+    <div class="label label-ru active-block" data-lang="ru">новостей</div>
+    <div class="label label-en" data-lang="en">news articles</div>
+    <div class="label label-uz" data-lang="uz">yangiliklar</div>
+  </div>
+  <div class="stat">
+    <div class="num">3</div>
+    <div class="label label-ru active-block" data-lang="ru">пользователя</div>
+    <div class="label label-en" data-lang="en">users</div>
+    <div class="label label-uz" data-lang="uz">foydalanuvchilar</div>
+  </div>
+  <div class="stat">
+    <div class="num">42</div>
+    <div class="label label-ru active-block" data-lang="ru">теста (все проходят)</div>
+    <div class="label label-en" data-lang="en">tests (all passing)</div>
+    <div class="label label-uz" data-lang="uz">testlar (hammasi o'tadi)</div>
+  </div>
+  <div class="stat">
+    <div class="num">5</div>
+    <div class="label label-ru active-block" data-lang="ru">приложений Django</div>
+    <div class="label label-en" data-lang="en">Django apps</div>
+    <div class="label label-uz" data-lang="uz">Django ilovalari</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="section-title section-ru active-block" data-lang="ru">📌 Сервисы проекта</div>
+<div class="section-title section-en" data-lang="en">📌 Project services</div>
+<div class="section-title section-uz" data-lang="uz">📌 Loyiha xizmatlari</div>
+
+<div class="grid">
+
+  <a href="http://127.0.0.1:5500" target="_blank" class="card">
+    <h3>🌐 Frontend</h3>
+    <p data-lang="ru" class="active-block">Главный сайт ресторана: меню, новости, о нас, контакты, логин и регистрация</p>
+    <p data-lang="en">Restaurant website: menu, news, about, contacts, login &amp; registration</p>
+    <p data-lang="uz">Restoran sayti: menyu, yangiliklar, biz haqimizda, aloqa, login va ro'yxatdan o'tish</p>
+    <div class="links"><span class="dot green" id="dot-frontend"></span> http://127.0.0.1:5500</div>
+  </a>
+
+  <a href="http://127.0.0.1:8000/api/docs/" target="_blank" class="card">
+    <h3>📘 Swagger Docs</h3>
+    <p data-lang="ru" class="active-block">Интерактивная документация API. Можно тестировать запросы прямо в браузере</p>
+    <p data-lang="en">Interactive API docs. Test requests right in your browser</p>
+    <p data-lang="uz">Interaktiv API hujjatlari. Brauzerda so'rovlarni sinab ko'ring</p>
+    <div class="links"><span class="dot gray"></span> /api/docs/</div>
+  </a>
+
+  <a href="http://127.0.0.1:8000/api/redoc/" target="_blank" class="card">
+    <h3>📖 ReDoc</h3>
+    <p data-lang="ru" class="active-block">Чистая читаемая документация API в две колонки</p>
+    <p data-lang="en">Clean readable API docs in two-column layout</p>
+    <p data-lang="uz">API hujjatlari ikki ustunli formatda</p>
+    <div class="links"><span class="dot gray"></span> /api/redoc/</div>
+  </a>
+
+  <a href="http://127.0.0.1:8000/admin/" target="_blank" class="card">
+    <h3>🔐 Django Admin</h3>
+    <p data-lang="ru" class="active-block">Панель управления. Логин: <b>admin</b>, пароль: <b>admin123</b></p>
+    <p data-lang="en">Admin panel. Login: <b>admin</b>, password: <b>admin123</b></p>
+    <p data-lang="uz">Boshqaruv paneli. Login: <b>admin</b>, parol: <b>admin123</b></p>
+    <div class="links"><span class="dot gray"></span> /admin/</div>
+  </a>
+
+  <a href="http://127.0.0.1:8000/api/schema/" target="_blank" class="card">
+    <h3>📄 OpenAPI Schema</h3>
+    <p data-lang="ru" class="active-block">JSON-схема API для импорта в Postman или генерации кода</p>
+    <p data-lang="en">JSON schema for Postman import or code generation</p>
+    <p data-lang="uz">Postman importi yoki kod generatsiyasi uchun JSON sxema</p>
+    <div class="links"><span class="dot gray"></span> /api/schema/</div>
+  </a>
+
+  <a href="http://127.0.0.1:8000/api/auth/login/" target="_blank" class="card">
+    <h3>🔑 JWT Авторизация</h3>
+    <p data-lang="ru" class="active-block">Получение JWT токена: POST /api/auth/login/</p>
+    <p data-lang="en">Get JWT token: POST /api/auth/login/</p>
+    <p data-lang="uz">JWT token olish: POST /api/auth/login/</p>
+    <div class="links"><span class="dot gray"></span> /api/auth/login/</div>
+  </a>
+
+  <a href="https://github.com/madsaomi/exam_project" target="_blank" class="card" style="border-color: #B31A2C; border-width: 2px;">
+    <h3>🐙 GitHub</h3>
+    <p data-lang="ru" class="active-block">Исходный код проекта: backend, frontend, Docker, CI/CD, тесты</p>
+    <p data-lang="en">Full source code: backend, frontend, Docker, CI/CD, tests</p>
+    <p data-lang="uz">To'liq kod: backend, frontend, Docker, CI/CD, testlar</p>
+    <div class="links"><span class="dot gray"></span> github.com/madsaomi/exam_project</div>
+  </a>
+
+</div>
+
+<!-- API TABLE -->
+<div class="section-title section-ru active-block" data-lang="ru">🔌 API endpoints</div>
+<div class="section-title section-en" data-lang="en">🔌 API endpoints</div>
+<div class="section-title section-uz" data-lang="uz">🔌 API endpointlar</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Endpoint</th>
+      <th data-lang="ru" class="active-block">Описание</th>
+      <th data-lang="en">Description</th>
+      <th data-lang="uz">Tavsif</th>
+      <th>Auth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><span class="method post">POST</span></td><td class="url-path">/api/auth/register/</td><td data-lang="ru" class="active-block">Регистрация</td><td data-lang="en">Register</td><td data-lang="uz">Ro'yxatdan o'tish</td><td>—</td></tr>
+    <tr><td><span class="method post">POST</span></td><td class="url-path">/api/auth/login/</td><td data-lang="ru" class="active-block">Получить JWT</td><td data-lang="en">Get JWT</td><td data-lang="uz">JWT olish</td><td>—</td></tr>
+    <tr><td><span class="method post">POST</span></td><td class="url-path">/api/auth/refresh/</td><td data-lang="ru" class="active-block">Обновить JWT</td><td data-lang="en">Refresh JWT</td><td data-lang="uz">JWT yangilash</td><td>—</td></tr>
+    <tr><td><span class="method get">GET</span></td><td class="url-path">/api/menu/categories/</td><td data-lang="ru" class="active-block">Категории</td><td data-lang="en">Categories</td><td data-lang="uz">Kategoriyalar</td><td>Read</td></tr>
+    <tr><td><span class="method post">POST</span></td><td class="url-path">/api/menu/categories/</td><td data-lang="ru" class="active-block">Создать категорию</td><td data-lang="en">Create category</td><td data-lang="uz">Kategoriya yaratish</td><td>Admin</td></tr>
+    <tr><td><span class="method get">GET</span></td><td class="url-path">/api/menu/dishes/</td><td data-lang="ru" class="active-block">Список блюд</td><td data-lang="en">All dishes</td><td data-lang="uz">Barcha taomlar</td><td>Read</td></tr>
+    <tr><td><span class="method get">GET</span></td><td class="url-path">/api/news/</td><td data-lang="ru" class="active-block">Новости</td><td data-lang="en">News</td><td data-lang="uz">Yangiliklar</td><td>Read</td></tr>
+    <tr><td><span class="method post">POST</span></td><td class="url-path">/api/contact/</td><td data-lang="ru" class="active-block">Отправить сообщение</td><td data-lang="en">Send message</td><td data-lang="uz">Xabar yuborish</td><td>—</td></tr>
+    <tr><td><span class="method get">GET</span></td><td class="url-path">/api/about/</td><td data-lang="ru" class="active-block">О ресторане</td><td data-lang="en">About</td><td data-lang="uz">Biz haqimizda</td><td>Read</td></tr>
+  </tbody>
+</table>
+
+</main>
+
+<footer>
+  <div data-lang="ru" class="active-block">
+    <a href="https://github.com/madsaomi/exam_project" target="_blank">GitHub</a>
+    ·
+    <b>London Project</b> — экзаменационная работа
+    ·
+    Django 6.0 · DRF 3.17 · SimpleJWT · PostgreSQL / SQLite
+  </div>
+  <div data-lang="en">
+    <a href="https://github.com/madsaomi/exam_project" target="_blank">GitHub</a>
+    ·
+    <b>London Project</b> — exam work
+    ·
+    Django 6.0 · DRF 3.17 · SimpleJWT · PostgreSQL / SQLite
+  </div>
+  <div data-lang="uz">
+    <a href="https://github.com/madsaomi/exam_project" target="_blank">GitHub</a>
+    ·
+    <b>London Project</b> — imtihon ishi
+    ·
+    Django 6.0 · DRF 3.17 · SimpleJWT · PostgreSQL / SQLite
+  </div>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.lang-buttons button').forEach(b => b.classList.remove('active'));
+  document.getElementById('btn-' + lang).classList.add('active');
+  document.querySelectorAll('[data-lang]').forEach(el => {
+    el.classList.remove('active', 'active-block', 'active-flex', 'active-grid');
+    if (el.getAttribute('data-lang') === lang) {
+      const d = el.style.display;
+      if (d === 'grid' || getComputedStyle(el).display === 'grid') el.classList.add('active-grid');
+      else if (d === 'flex' || getComputedStyle(el).display === 'flex') el.classList.add('active-flex');
+      else if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'H2' || el.tagName === 'TH' || el.tagName === 'TD') el.classList.add('active-block');
+      else el.classList.add('active');
+    }
+  });
+}
+
+async function checkStatus() {
+  try {
+    const r = await fetch('http://127.0.0.1:5500/', { method: 'HEAD', mode: 'no-cors' });
+    document.getElementById('dot-frontend').className = 'dot green';
+  } catch(e) {
+    document.getElementById('dot-frontend').className = 'dot red';
+  }
+}
+checkStatus();
+</script>
+</body>
+</html>

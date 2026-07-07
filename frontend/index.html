@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>London Grill — The Key To Fine Dining</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 6c-3 0-5 3-5 3s-6-4-10 0c-3 3-2 8 1 9 2 1 4 0 5-2 0 4 3 7 9 7s9-3 9-7c1 2 3 3 5 2 3-1 4-6 1-9-4-4-10 0-10 0s-2-3-5-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="24" cy="26" r="3" fill="currentColor"/>
+      </svg>
+      <span class="brand-text">LONDON<span>GRILL HOUSE</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="menu.html">Menu</a>
+      <a href="news.html">News</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-outline-white" data-login-btn>Log In</a>
+      <button class="hamburger" aria-label="Menu">&#9776;</button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" style="padding:0;">
+  <div class="container">
+    <div class="hero-copy">
+      <p class="eyebrow">Chase The New Flavour</p>
+      <h1>The Key To<br>Fine Dining</h1>
+      <p>Свежие блюда, приготовленные из отборных продуктов каждый день. Загляни в наше меню и найди новый любимый вкус.</p>
+      <a href="menu.html" class="btn btn-outline-white">Explore Menu</a>
+    </div>
+    <div class="hero-media">
+      <div class="plate-ring"></div>
+      <img src="https://picsum.photos/seed/londongrill-hero/500/500" alt="Фирменное блюдо London Grill">
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- ============ POPULAR DISHES ============ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="dishes-head">
+      <div>
+        <p class="eyebrow">Меню</p>
+        <h2 style="font-size:32px;">Popular Dishes</h2>
+      </div>
+      <div class="carousel-arrows">
+        <button id="popular-prev" aria-label="Назад">&#8592;</button>
+        <button id="popular-next" aria-label="Вперёд">&#8594;</button>
+      </div>
+    </div>
+    <div class="dish-grid" id="popular-dishes">
+      <div class="loading-row">Загружаем блюда…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU PACK ============ -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Меню</p>
+      <h2 class="section-title">Our Regular Menu Pack</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:40px;" id="home-categories">
+      <button class="btn btn-primary" data-cat="" style="border-radius:30px; padding:10px 22px; font-size:13px;">All</button>
+    </div>
+    <div class="menu-grid" id="home-dishes" style="grid-template-columns: repeat(4, 1fr);">
+      <div class="loading-row">Загружаем меню…</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Testimony</p>
+      <h2 class="section-title">Happy Customers</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="who">Maria</div>
+        <p>Очень уютное место, а шефы явно любят своё дело — вкус блюд запоминается надолго. Обязательно вернёмся ещё.</p>
+        <div class="meta"><span>06/03/2022</span><span>11:15</span></div>
+      </div>
+      <div class="testi-card">
+        <div class="who">James</div>
+        <p>Заказывал доставку несколько раз — всегда горячо, свежо и точно в срок. Кебаб просто огонь!</p>
+        <div class="meta"><span>02/03/2022</span><span>19:40</span></div>
+      </div>
+      <div class="testi-card">
+        <div class="who">Aisha</div>
+        <p>Атмосфера, сервис и вкус — всё на высшем уровне. Рекомендую заглянуть в выходные, столик стоит бронировать заранее.</p>
+        <div class="meta"><span>28/02/2022</span><span>13:05</span></div>
+      </div>
+    </div>
+    <div class="testi-pager">
+      <button aria-label="Назад">&#8592;</button>
+      <span>01 — 02 03 04</span>
+      <button aria-label="Вперёд">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWS ============ -->
+<section>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">News</p>
+      <h2 class="section-title">Gericht Updates</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="news-grid" id="home-news">
+      <div class="loading-row">Загружаем новости…</div>
+    </div>
+    <div class="view-more-wrap">
+      <a href="news.html" class="btn btn-outline">View More</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VIDEO BAND ============ -->
+<div class="video-band" style="background-image:url('https://picsum.photos/seed/londongrill-interior/1600/460');">
+  <div class="play">&#9658;</div>
+</div>
+
+<!-- ============ INSTAGRAM ============ -->
+<section class="section-alt insta-section">
+  <div class="container">
+    <div class="insta-copy">
+      <p class="eyebrow">Instagram</p>
+      <h2 style="font-size:32px;">Photo Gallery</h2>
+      <p>Смотри, чем живёт кухня London Grill между заказами — свежие кадры каждую неделю.</p>
+      <a href="#" class="btn btn-outline">View More</a>
+    </div>
+    <div class="insta-grid">
+      <a href="#"><img src="https://picsum.photos/seed/insta1/300/340" alt=""></a>
+      <a href="#" class="insta-center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+      </a>
+      <a href="#"><img src="https://picsum.photos/seed/insta3/300/340" alt=""></a>
+      <a href="#"><img src="https://picsum.photos/seed/insta4/300/340" alt=""></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<div class="newsletter">
+  <p class="eyebrow">Newsletter</p>
+  <h2>Subscribe To Our Newsletter</h2>
+  <p class="sub">And never miss latest Updates!</p>
+  <form class="newsletter-form" data-newsletter-form>
+    <input type="email" placeholder="Email Address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col">
+      <h4>Contact Us</h4>
+      <p>123 Strand, London, WC2N 5JR, UK</p>
+      <p>+1 212-344-1230<br>+1 212-555-1230</p>
+    </div>
+    <div class="footer-col footer-brand">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 6c-3 0-5 3-5 3s-6-4-10 0c-3 3-2 8 1 9 2 1 4 0 5-2 0 4 3 7 9 7s9-3 9-7c1 2 3 3 5 2 3-1 4-6 1-9-4-4-10 0-10 0s-2-3-5-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="24" cy="26" r="3" fill="currentColor"/>
+      </svg>
+      <span class="brand-text">LONDON<span>GRILL HOUSE</span></span>
+      <p class="footer-quote">"The best way to find yourself is to lose yourself in the service of others."</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Twitter">t</a>
+        <a href="#" aria-label="Instagram">i</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Working Hours</h4>
+      <p>Monday-Friday:<br>08:00 am - 12:00 am</p>
+      <p>Saturday-Sunday:<br>07:00 am - 11:00 pm</p>
+    </div>
+  </div>
+  <div class="footer-bottom"><span data-year></span> London Grill. All Rights reserved.</div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

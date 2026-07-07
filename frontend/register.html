@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up — London Grill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 6c-3 0-5 3-5 3s-6-4-10 0c-3 3-2 8 1 9 2 1 4 0 5-2 0 4 3 7 9 7s9-3 9-7c1 2 3 3 5 2 3-1 4-6 1-9-4-4-10 0-10 0s-2-3-5-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="24" cy="26" r="3" fill="currentColor"/>
+      </svg>
+      <span class="brand-text">LONDON<span>GRILL HOUSE</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="menu.html">Menu</a>
+      <a href="news.html">News</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+    </nav>
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-outline-white" data-login-btn>Log In</a>
+      <button class="hamburger" aria-label="Menu">&#9776;</button>
+    </div>
+  </div>
+</header>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h2>Sign Up</h2>
+    <div class="section-divider"></div>
+    <form id="register-form">
+      <input class="field" type="text" name="username" placeholder="Username" required>
+      <input class="field" type="email" name="email" placeholder="Email address" required>
+      <input class="field" type="password" name="password" placeholder="Password" required>
+      <input class="field" type="password" name="password2" placeholder="Confirm password" required>
+      <button type="submit" class="btn btn-primary btn-block" id="register-submit">Create Account</button>
+      <div class="form-msg" id="register-msg"></div>
+    </form>
+    <p class="auth-switch">Уже есть аккаунт? <a href="login.html">Войти</a></p>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

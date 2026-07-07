@@ -1,8 +1,18 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.http import FileResponse
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+from config.settings import BASE_DIR
+
+def portal_view(request):
+    response = FileResponse(open(BASE_DIR / 'index.html', 'rb'), content_type='text/html; charset=utf-8')
+    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+    return response
 
 urlpatterns = [
+    path('', portal_view, name='portal'),
     path('admin/', admin.site.urls),
     path('api/auth/', include('accounts.urls')),
     path('api/menu/', include('menu.urls')),

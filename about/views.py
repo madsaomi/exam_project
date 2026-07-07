@@ -1,4 +1,4 @@
-from rest_framework import generics, mixins
+from rest_framework import generics
 from accounts.permissions import IsAdminOrReadOnly
 from .models import AboutContent
 from .serializers import AboutContentSerializer
