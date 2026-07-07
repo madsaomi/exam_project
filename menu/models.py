@@ -28,6 +28,12 @@ class Dish(models.Model):
     class Meta:
         verbose_name_plural = 'dishes'
         ordering = ('order', 'name')
+        constraints = [
+            models.UniqueConstraint(
+                fields=['category', 'name'],
+                name='unique_dish_in_category'
+            )
+        ]
 
     def __str__(self):
         return self.name
