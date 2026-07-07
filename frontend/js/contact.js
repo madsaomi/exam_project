@@ -17,19 +17,19 @@
     };
 
     submitBtn.disabled = true;
-    submitBtn.textContent = "Sending…";
+    submitBtn.textContent = __("loading");
 
     try {
       await ContactAPI.send(payload);
-      msg.textContent = "Сообщение отправлено! Мы свяжемся с вами в ближайшее время.";
+      msg.textContent = __("contactSuccess");
       msg.classList.add("ok");
       form.reset();
     } catch (err) {
-      msg.textContent = err.message || "Не удалось отправить сообщение. Попробуй ещё раз.";
+      msg.textContent = err.message || __("contactError");
       msg.classList.add("err");
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = "Send message";
+      submitBtn.textContent = __("send");
     }
   });
 })();

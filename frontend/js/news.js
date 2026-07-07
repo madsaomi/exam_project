@@ -45,7 +45,7 @@
           <h4>${title}</h4>
           <p>${excerpt}${hasMore ? "…" : ""}</p>
           <div class="news-foot">
-            <a href="#" class="read-more">Read More</a>
+            <a href="#" class="read-more">${__("readMore")}</a>
             <span class="date">${date}</span>
           </div>
         </div>
@@ -64,13 +64,13 @@
     allNews = await NewsAPI.list();
     listWrap.innerHTML = "";
     if (!allNews.length) {
-      listWrap.innerHTML = `<div class="empty-note">Новостей пока нет. Загляните позже!</div>`;
+      listWrap.innerHTML = `<div class="empty-note">${__("noNews")}</div>`;
       loadMoreBtn.style.display = "none";
     } else {
       renderMore();
     }
   } catch (e) {
-    listWrap.innerHTML = `<div class="empty-note">Не удалось загрузить новости: ${escapeHtml(e.message)}</div>`;
+    listWrap.innerHTML = `<div class="empty-note">${__("loading")}: ${escapeHtml(e.message)}</div>`;
     loadMoreBtn.style.display = "none";
   }
 

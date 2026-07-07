@@ -4,7 +4,7 @@
     const about = await AboutAPI.get();
     const data = Array.isArray(about) ? about[0] : (about && about.results ? about.results[0] : about);
     if (!data) {
-      wrap.innerHTML = `<p>Информация появится здесь позже.</p>`;
+      wrap.innerHTML = `<p>${__("noAbout")}</p>`;
       return;
     }
     const title = pick(data, ["title"], "");
@@ -19,11 +19,11 @@
 
     wrap.innerHTML = `
       ${title ? `<h3 style="margin-bottom:20px;">${escapeHtml(title)}</h3>` : ""}
-      ${paragraphs || "<p>Описание пока не заполнено.</p>"}
+      ${paragraphs || `<p>${__("noAbout")}</p>`}
       <img src="${image ? resolveImage(data, "about") : "https://picsum.photos/seed/londongrill-about/900/600"}" alt="О ресторане">
     `;
   } catch (e) {
-    wrap.innerHTML = `<p>Не удалось загрузить информацию: ${escapeHtml(e.message)}</p>
+    wrap.innerHTML = `<p>${__("loading")}: ${escapeHtml(e.message)}</p>
       <img src="https://picsum.photos/seed/londongrill-about/900/600" alt="О ресторане">`;
   }
 })();

@@ -7,7 +7,7 @@
 
   function renderPopular() {
     if (!popularDishes.length) {
-      popularWrap.innerHTML = `<div class="empty-note">Пока нет добавленных блюд. Загляните позже!</div>`;
+      popularWrap.innerHTML = `<div class="empty-note">${__("noDishes")}</div>`;
       return;
     }
     const start = popularPage * PER_PAGE;
@@ -26,7 +26,7 @@
     popularDishes = await MenuAPI.dishes();
     renderPopular();
   } catch (e) {
-    popularWrap.innerHTML = `<div class="empty-note">Не удалось загрузить блюда: ${escapeHtml(e.message)}</div>`;
+    popularWrap.innerHTML = `<div class="empty-note">${__("loading")}: ${escapeHtml(e.message)}</div>`;
   }
 
   document.getElementById("popular-next").addEventListener("click", () => {
@@ -48,7 +48,7 @@
 
   function renderDishes(list) {
     if (!list.length) {
-      dishesWrap.innerHTML = `<div class="empty-note">Блюда в этой категории пока не добавлены.</div>`;
+      dishesWrap.innerHTML = `<div class="empty-note">${__("noDishes")}</div>`;
       return;
     }
     dishesWrap.innerHTML = list.slice(0, 8).map((d) => `
@@ -61,12 +61,12 @@
   }
 
   async function loadDishes(categoryId) {
-    dishesWrap.innerHTML = `<div class="loading-row">Загружаем меню…</div>`;
+    dishesWrap.innerHTML = `<div class="loading-row">${__("loading")}</div>`;
     try {
       const dishes = await MenuAPI.dishes(categoryId);
       renderDishes(dishes);
     } catch (e) {
-      dishesWrap.innerHTML = `<div class="empty-note">Не удалось загрузить меню: ${escapeHtml(e.message)}</div>`;
+      dishesWrap.innerHTML = `<div class="empty-note">${__("loading")}: ${escapeHtml(e.message)}</div>`;
     }
   }
 
@@ -74,7 +74,7 @@
     const categories = await MenuAPI.categories();
     categories.slice(0, 8).forEach((c) => {
       const btn = document.createElement("button");
-      btn.textContent = pick(c, ["name", "title"], "Категория");
+      btn.textContent = pick(c, ["name", "title"], __("categories").slice(0,-1));
       btn.dataset.cat = pick(c, ["id"], "");
       btn.style.cssText = "border-radius:30px; padding:10px 22px; font-size:13px; border:1.5px solid var(--red); background:transparent; color:var(--red); font-weight:600;";
       catsWrap.appendChild(btn);
@@ -102,7 +102,7 @@
   try {
     const news = await NewsAPI.list();
     if (!news.length) {
-      newsWrap.innerHTML = `<div class="empty-note">Новостей пока нет. Загляните позже!</div>`;
+      newsWrap.innerHTML = `<div class="empty-note">${__("noNews")}</div>`;
     } else {
       newsWrap.innerHTML = news.slice(0, 3).map((n) => `
         <div class="news-card">
@@ -111,7 +111,7 @@
             <h4>${escapeHtml(pick(n, ["title", "name"], "Новость"))}</h4>
             <p>${escapeHtml(pick(n, ["excerpt", "summary", "content", "body"], "").toString().slice(0, 90))}${pick(n, ["excerpt","summary","content","body"],"").length > 90 ? "…" : ""}</p>
             <div class="news-foot">
-              <a href="news.html" class="read-more">Read More</a>
+              <a href="news.html" class="read-more">${__("readMore")}</a>
               <span class="date">${formatDate(pick(n, ["created_at", "date", "published_at"], ""))}</span>
             </div>
           </div>
@@ -119,6 +119,6 @@
       `).join("");
     }
   } catch (e) {
-    newsWrap.innerHTML = `<div class="empty-note">Не удалось загрузить новости: ${escapeHtml(e.message)}</div>`;
+    newsWrap.innerHTML = `<div class="empty-note">${__("loading")}: ${escapeHtml(e.message)}</div>`;
   }
 })();

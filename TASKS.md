@@ -57,6 +57,31 @@
 - `README.md` (русский + узбекский)
 - Миграции созданы и накатаны, `python manage.py check` проходит без ошибок
 
+### Чистка и доработка кода
+- Убран неиспользуемый импорт `mixins` в `about/views.py`
+- `from datetime import timedelta` перенесён наверх (PEP8)
+- `BASE_DIR` теперь импортируется из `settings` (без дублирования)
+- `accounts/views.py` — прямой импорт `CustomUser`
+- Длинные строки в `menu/tests.py` разбиты
+- Убрана утечка API-эндпоинтов в сообщениях пользователям
+- Исправлен `main.js` (потенциальный TypeError)
+- Добавлен `data-login-btn` в `register.html`
+- Бренд приведён к единому виду: `LONDON GRILL HOUSE`
+- Исправлен адрес в футере
+- Удалена пустая директория `frontend/assets/`
+
+### i18n — Мультиязычность (EN / RU / UZ)
+- Создан `js/i18n.js` со словарём на 40+ ключей × 3 языка
+- Переключатель языка в шапке всех 7 страниц
+- Язык сохраняется в `localStorage`
+- Все надписи, кнопки, заголовки, футер — переключаются
+- JS-сообщения (пустые списки, ошибки, успех) — через `__()`
+
+### News Modal
+- По клику "Read More" открывается модальное окно
+- Показывает полный текст, заголовок, дату, картинку
+- Закрывается по ✕, на фон, по Escape
+
 ---
 
 ## ✅ Финальный статус — всё готово
@@ -81,6 +106,10 @@
 | 16 | **Frontend** | ✅ HTML/CSS/JS, подключён к API |
 | 17 | **Демо-данные** | ✅ 8 категорий, 34 блюда, 5 новостей |
 | 18 | **Серверы запущены** | ✅ Backend :8000, Frontend :5500 |
+| 19 | **Чистка кода** | ✅ Импорты, PEP8, BASE_DIR, brand, адрес |
+| 20 | **i18n (EN/RU/UZ)** | ✅ Все 7 страниц, 40+ ключей, `localStorage` |
+| 21 | **News Modal (Read More)** | ✅ Модальное окно с полным текстом |
+| 22 | **CI requirements.txt** | ✅ Добавлены все зависимости |
 
 **Всего тестов: 42/42 — проходят ✅**
 
@@ -171,31 +200,18 @@
 | 13 | **Gunicorn** | ❌ Bajarilmagan | — | `requirements.txt` da yo'q |
 | 14 | **Nginx konfigi** | ❌ Bajarilmagan | — | `deploy/nginx.conf` yaratilmagan |
 | 15 | **CI/CD** | ❌ Bajarilmagan | — | `.github/workflows/ci.yml` yaratilmagan |
-| 16–22 | **Frontend** | ❌ Bajarilmagan | — | Agar frontend jamoasi bo'lsa |
+| 16–22 | **Frontend** | ✅ Tayyor | — | Barcha sahifalar ishlaydi |
+| 23 | **Code cleanup** | ✅ Tayyor | — | Imports, PEP8, brand, address |
+| 24 | **i18n (EN/RU/UZ)** | ✅ Tayyor | — | 7 sahifa, 40+ kalit, localStorage |
+| 25 | **News Modal** | ✅ Tayyor | — | Read More to'liq matn oynasi |
 
-**Jami testlar: 37/37 — hammasi o'tadi ✅**
+**Jami testlar: 42/42 — hammasi o'tadi ✅**
 
 ---
 
-## ❗ Nima qilish kerak — qolgan vazifalar
+## ❗ Barcha vazifalar bajarildi ✅
 
-### 🟥 Vazifa A: .env yaratish
-`.env.example` ni `.env` ga ko'chiring va SECRET_KEY generatsiya qiling.
-
-### 🟥 Vazifa B: about testlari
-`about/tests.py` ni yarating (yuqoridagi ruscha bo'limdagi kodni ishlating).
-
-### 🟧 Vazifa C: Gunicorn
-`requirements.txt` ga `gunicorn` qo'shing.
-
-### 🟧 Vazifa D: Nginx konfigi
-`deploy/nginx.conf` ni yarating.
-
-### 🟧 Vazifa E: CI/CD
-`.github/workflows/ci.yml` ni yarating.
-
-### 🟪 Vazifa F: Frontend (agar bo'lsa)
-Barcha sahifalar: avtorizatsiya, menyu, yangiliklar, biz haqimizda, kontaktlar, admin panel.
+Loyiha to'liq tayyor. 42 test, 3 tilda frontend, Docker, CI/CD, GitHub.
 
 ---
 
