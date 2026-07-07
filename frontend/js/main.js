@@ -23,8 +23,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-newsletter-form]").forEach((form) => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
+      const emailInput = form.querySelector("input[type=email]");
       const msg = form.querySelector("[data-newsletter-msg]");
-      const email = form.querySelector("input[type=email]").value;
+      if (!emailInput) return;
+      const email = emailInput.value.trim();
       if (!email) return;
       if (msg) {
         msg.textContent = "Спасибо за подписку! Проверьте почту " + email;

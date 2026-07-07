@@ -1,25 +1,61 @@
 (async function () {
   const listWrap = document.getElementById("news-list");
   const loadMoreBtn = document.getElementById("load-more-btn");
+  const modal = document.getElementById("news-modal");
+  const modalImg = document.getElementById("modal-img");
+  const modalTitle = document.getElementById("modal-title");
+  const modalDate = document.getElementById("modal-date");
+  const modalBody = document.getElementById("modal-body");
   const PAGE_SIZE = 6;
   let allNews = [];
   let shown = 0;
 
+  function openModal(item) {
+    const img = resolveImage(item, pick(item, ["id"], Math.random()));
+    const title = escapeHtml(pick(item, ["title", "name"], "Новость"));
+    const date = formatDate(pick(item, ["created_at", "date", "published_at"], ""));
+    const full = escapeHtml(pick(item, ["content", "body", "excerpt", "summary"], ""));
+    modalImg.src = img;
+    modalImg.alt = title;
+    modalTitle.textContent = title;
+    modalDate.textContent = date;
+    modalBody.innerHTML = full.split("\n").filter(Boolean).map(p => `<p>${p}</p>`).join("");
+    modal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
   function renderMore() {
     const next = allNews.slice(shown, shown + PAGE_SIZE);
-    listWrap.insertAdjacentHTML("beforeend", next.map((n) => `
-      <div class="news-card">
-        <img src="${resolveImage(n, pick(n, ["id"], Math.random()))}" alt="${escapeHtml(pick(n, ["title", "name"], "Новость"))}">
+    next.forEach((n) => {
+      const card = document.createElement("div");
+      card.className = "news-card";
+      const img = resolveImage(n, pick(n, ["id"], Math.random()));
+      const title = escapeHtml(pick(n, ["title", "name"], "Новость"));
+      const excerpt = escapeHtml(pick(n, ["excerpt", "summary", "content", "body"], "").toString().slice(0, 110));
+      const hasMore = pick(n, ["excerpt", "summary", "content", "body"], "").length > 110;
+      const date = formatDate(pick(n, ["created_at", "date", "published_at"], ""));
+      card.innerHTML = `
+        <img src="${img}" alt="${title}">
         <div class="news-body">
-          <h4>${escapeHtml(pick(n, ["title", "name"], "Новость"))}</h4>
-          <p>${escapeHtml(pick(n, ["excerpt", "summary", "content", "body"], "").toString().slice(0, 110))}${pick(n, ["excerpt","summary","content","body"],"").length > 110 ? "…" : ""}</p>
+          <h4>${title}</h4>
+          <p>${excerpt}${hasMore ? "…" : ""}</p>
           <div class="news-foot">
             <a href="#" class="read-more">Read More</a>
-            <span class="date">${formatDate(pick(n, ["created_at", "date", "published_at"], ""))}</span>
+            <span class="date">${date}</span>
           </div>
         </div>
-      </div>
-    `).join(""));
+      `;
+      card.querySelector(".read-more").addEventListener("click", (e) => {
+        e.preventDefault();
+        openModal(n);
+      });
+      listWrap.appendChild(card);
+    });
     shown += next.length;
     loadMoreBtn.style.display = shown >= allNews.length ? "none" : "inline-flex";
   }
@@ -28,7 +64,7 @@
     allNews = await NewsAPI.list();
     listWrap.innerHTML = "";
     if (!allNews.length) {
-      listWrap.innerHTML = `<div class="empty-note">Новостей пока нет. Добавь первую через /api/news/.</div>`;
+      listWrap.innerHTML = `<div class="empty-note">Новостей пока нет. Загляните позже!</div>`;
       loadMoreBtn.style.display = "none";
     } else {
       renderMore();
@@ -39,4 +75,8 @@
   }
 
   loadMoreBtn.addEventListener("click", renderMore);
+
+  document.getElementById("modal-close").addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
 })();

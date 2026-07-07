@@ -4,7 +4,7 @@
     const about = await AboutAPI.get();
     const data = Array.isArray(about) ? about[0] : (about && about.results ? about.results[0] : about);
     if (!data) {
-      wrap.innerHTML = `<p>Информация появится здесь, как только будет добавлена через /api/about/.</p>`;
+      wrap.innerHTML = `<p>Информация появится здесь позже.</p>`;
       return;
     }
     const title = pick(data, ["title"], "");

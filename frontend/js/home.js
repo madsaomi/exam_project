@@ -7,7 +7,7 @@
 
   function renderPopular() {
     if (!popularDishes.length) {
-      popularWrap.innerHTML = `<div class="empty-note">Пока нет добавленных блюд. Добавь их через /api/menu/dishes/.</div>`;
+      popularWrap.innerHTML = `<div class="empty-note">Пока нет добавленных блюд. Загляните позже!</div>`;
       return;
     }
     const start = popularPage * PER_PAGE;
@@ -102,7 +102,7 @@
   try {
     const news = await NewsAPI.list();
     if (!news.length) {
-      newsWrap.innerHTML = `<div class="empty-note">Новостей пока нет. Добавь первую через /api/news/.</div>`;
+      newsWrap.innerHTML = `<div class="empty-note">Новостей пока нет. Загляните позже!</div>`;
     } else {
       newsWrap.innerHTML = news.slice(0, 3).map((n) => `
         <div class="news-card">

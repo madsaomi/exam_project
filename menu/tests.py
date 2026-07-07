@@ -93,7 +93,9 @@ class DishAPITest(APITestCase):
     def test_filter_by_category(self):
         response = self.client.get(self.list_url, {'category': self.category.id})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data['results']) if 'results' in response.data else len(response.data), 2)
+        data = response.data
+        count = len(data['results']) if 'results' in data else len(data)
+        self.assertEqual(count, 2)
 
     def test_search_by_name(self):
         response = self.client.get(self.list_url, {'search': 'Osh'})
