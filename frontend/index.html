@@ -141,8 +141,11 @@
 </section>
 
 <!-- ============ VIDEO BAND ============ -->
-<div class="video-band" style="background-image:url('https://picsum.photos/seed/londongrill-interior/1600/460');">
-  <div class="play">&#9658;</div>
+<div class="video-band" id="video-band" style="background-image:url('https://picsum.photos/seed/londongrill-interior/1600/460');">
+  <div class="play" id="play-btn">&#9658;</div>
+  <video class="video-inline" id="video-inline" poster="https://picsum.photos/seed/londongrill-interior/1600/460" preload="none" controls>
+    <source src="https://videos.pexels.com/video-files/3195394/3195394-sd_640_360_25fps.mp4" type="video/mp4">
+  </video>
 </div>
 
 <!-- ============ INSTAGRAM ============ -->
@@ -166,15 +169,17 @@
 </section>
 
 <!-- ============ NEWSLETTER ============ -->
-<div class="newsletter">
-  <p class="eyebrow">Newsletter</p>
-  <h2 data-i18n="newsletterTitle">Subscribe To Our Newsletter</h2>
-  <p class="sub">And never miss latest Updates!</p>
-  <form class="newsletter-form" data-newsletter-form>
-    <input type="email" placeholder="Email Address" required>
-    <button type="submit">Subscribe</button>
-  </form>
-</div>
+<section class="newsletter">
+  <div class="container" style="text-align:center;">
+    <h2 style="margin-bottom:16px;" data-i18n="newsletterTitle">Subscribe To Our Newsletter</h2>
+    <p style="color:#666; margin-bottom:24px;">Drop your email and never miss our new menu items.</p>
+    <form class="news-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+      <input type="email" placeholder="Email Address" required>
+      <button type="submit" class="btn btn-primary" style="padding:0 32px;" data-i18n="subscribe">Subscribe</button>
+    </form>
+  </div>
+</section>
+
 
 <!-- ============ FOOTER ============ -->
 <footer class="site-footer">

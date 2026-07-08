@@ -37,6 +37,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const yearEls = document.querySelectorAll("[data-year]");
   yearEls.forEach((el) => (el.textContent = new Date().getFullYear()));
+
+  /* ---------- Scroll Reveal Animations ---------- */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+  // Add the class to elements we want to animate, and observe them
+  const animatedElements = document.querySelectorAll('.hero-copy, .hero-media, .section-head, .dish-card, .menu-item, .testi-card, .news-card, .insta-grid a, .newsletter');
+  animatedElements.forEach(el => {
+    el.classList.add('reveal');
+    observer.observe(el);
+  });
+  
+  // Re-observe dynamically added items (like dishes loaded via API)
+  const mutationObserver = new MutationObserver((mutations) => {
+    mutations.forEach(m => {
+      m.addedNodes.forEach(node => {
+        if (node.nodeType === 1 && (node.classList.contains('dish-card') || node.classList.contains('menu-item') || node.classList.contains('news-card'))) {
+          node.classList.add('reveal');
+          // Short delay to allow CSS to apply before measuring intersection
+          setTimeout(() => observer.observe(node), 10);
+        }
+      });
+    });
+  });
+  
+  const grids = document.querySelectorAll('.dish-grid, .menu-grid, .news-grid');
+  grids.forEach(grid => mutationObserver.observe(grid, { childList: true }));
+
+  /* ---------- Inline Video ---------- */
+  const playBtn = document.getElementById('play-btn');
+  const videoBand = document.getElementById('video-band');
+  const videoInline = document.getElementById('video-inline');
+  if (playBtn && videoBand && videoInline) {
+    playBtn.addEventListener('click', () => {
+      playBtn.classList.add('hidden');
+      videoBand.classList.add('playing');
+      videoInline.play();
+    });
+  }
 });
 
 /* ---------- tiny html-escape helper reused by page scripts ---------- */

@@ -186,7 +186,7 @@
 | # | Vazifa | Holati | Kim bajargan | Izoh |
 |---|---|---|---|---|
 | 1 | **CORS** | ✅ Tayyor | Backend #1 | `django-cors-headers` qo'shilgan |
-| 2 | **.env fayllari** | ⚠️ Qisman | Backend #1 | `.env.example` bor, `.env` yo'q |
+| 2 | **.env fayllari** | ✅ Tayyor | Backend #1 | `.env.example` va `.env` yaratilgan |
 | 3 | **Docker** | ✅ Tayyor | DevOps | `Dockerfile`, `docker-compose.yml`, `.dockerignore` yaratilgan |
 | 4 | **CustomUser kengaytirish** | ✅ Tayyor | Backend #2 | `phone`, `avatar` maydonlari qo'shilgan |
 | 5 | **Contact DetailView** | ✅ Tayyor | Backend #2 | `ContactMessageRetrieveView` qo'shilgan |
@@ -196,10 +196,10 @@
 | 9 | **menu testlari** | ✅ Tayyor | Backend #3 | 10 ta test, hammasi o'tadi |
 | 10 | **news testlari** | ✅ Tayyor | Backend #3 | 10 ta test, hammasi o'tadi |
 | 11 | **contact testlari** | ⚠️ Tuzatildi | — | Xatolar bor edi, men tuzatdim |
-| 12 | **about testlari** | ❌ Bajarilmagan | — | `about/tests.py` yaratilmagan |
-| 13 | **Gunicorn** | ❌ Bajarilmagan | — | `requirements.txt` da yo'q |
-| 14 | **Nginx konfigi** | ❌ Bajarilmagan | — | `deploy/nginx.conf` yaratilmagan |
-| 15 | **CI/CD** | ❌ Bajarilmagan | — | `.github/workflows/ci.yml` yaratilmagan |
+| 12 | **about testlari** | ✅ Tayyor | Backend #3 | 5 ta test qo'shilgan |
+| 13 | **Gunicorn** | ✅ Tayyor | DevOps | `requirements.txt` da bor |
+| 14 | **Nginx konfigi / Deploy** | ✅ Tayyor | DevOps | Railway uchun Whitenoise va dj-database-url qo'shildi |
+| 15 | **CI/CD** | ✅ Tayyor | DevOps | `.github/workflows/ci.yml` tayyorlangan |
 | 16–22 | **Frontend** | ✅ Tayyor | — | Barcha sahifalar ishlaydi |
 | 23 | **Code cleanup** | ✅ Tayyor | — | Imports, PEP8, brand, address |
 | 24 | **i18n (EN/RU/UZ)** | ✅ Tayyor | — | 7 sahifa, 40+ kalit, localStorage |

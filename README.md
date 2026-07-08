@@ -58,6 +58,19 @@ python manage.py runserver
 | GET | `/api/docs/` | Swagger UI |
 | GET | `/api/redoc/` | ReDoc UI |
 
+### Деплой (Railway)
+
+Проект полностью настроен для деплоя на [Railway](https://railway.app/):
+1. Создайте проект и добавьте базу данных **PostgreSQL**.
+2. Подключите ваш GitHub репозиторий.
+3. В настройках сервиса (Variables) добавьте следующие переменные:
+   - `SECRET_KEY` (ваша секретная строка)
+   - `DEBUG=False`
+   - `ALLOWED_HOSTS=*`
+   - `CSRF_TRUSTED_ORIGINS=https://<your-app-domain>.railway.app`
+   - `DATABASE_URL` (строка подключения к базе данных, выдается Railway)
+4. Railway автоматически соберет образ из `Dockerfile`, применит статику через `whitenoise` и запустит сервер с помощью Gunicorn.
+
 ### Структура проекта
 
 ```
@@ -129,6 +142,19 @@ python manage.py runserver
 | GET | `/api/schema/` | OpenAPI sxemasi |
 | GET | `/api/docs/` | Swagger UI |
 | GET | `/api/redoc/` | ReDoc UI |
+
+### Deploy (Railway)
+
+Loyiha [Railway](https://railway.app/) ga yuklash uchun to'liq moslashtirilgan:
+1. Loyiha yarating va **PostgreSQL** ma'lumotlar bazasini qo'shing.
+2. GitHub repositoriyni ulang.
+3. Xizmat sozlamalarida (Variables) quyidagi o'zgaruvchilarni qo'shing:
+   - `SECRET_KEY` (maxfiy kalit)
+   - `DEBUG=False`
+   - `ALLOWED_HOSTS=*`
+   - `CSRF_TRUSTED_ORIGINS=https://<your-app-domain>.railway.app`
+   - `DATABASE_URL` (Railway beradigan bazaga ulanish havolasi)
+4. Railway avtomatik ravishda `Dockerfile` orqali build qiladi, `whitenoise` yordamida statik fayllarni yig'adi va Gunicorn orqali serverni ishga tushiradi.
 
 ### Loyiha tuzilishi
 
