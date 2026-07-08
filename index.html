@@ -365,15 +365,15 @@ footer a:hover { color: var(--accent); }
 
 <div class="grid">
 
-  <a href="http://127.0.0.1:5500" target="_blank" class="card">
+  <a href="/frontend/index.html" target="_blank" class="card">
     <h3>🌐 Frontend</h3>
     <p data-lang="ru" class="active-block">Главный сайт ресторана: меню, новости, о нас, контакты, логин и регистрация</p>
     <p data-lang="en">Restaurant website: menu, news, about, contacts, login &amp; registration</p>
     <p data-lang="uz">Restoran sayti: menyu, yangiliklar, biz haqimizda, aloqa, login va ro'yxatdan o'tish</p>
-    <div class="links"><span class="dot green" id="dot-frontend"></span> http://127.0.0.1:5500</div>
+    <div class="links"><span class="dot green" id="dot-frontend"></span> /frontend/index.html</div>
   </a>
 
-  <a href="http://127.0.0.1:8000/api/docs/" target="_blank" class="card">
+  <a href="/api/docs/" target="_blank" class="card">
     <h3>📘 Swagger Docs</h3>
     <p data-lang="ru" class="active-block">Интерактивная документация API. Можно тестировать запросы прямо в браузере</p>
     <p data-lang="en">Interactive API docs. Test requests right in your browser</p>
@@ -381,7 +381,7 @@ footer a:hover { color: var(--accent); }
     <div class="links"><span class="dot gray"></span> /api/docs/</div>
   </a>
 
-  <a href="http://127.0.0.1:8000/api/redoc/" target="_blank" class="card">
+  <a href="/api/redoc/" target="_blank" class="card">
     <h3>📖 ReDoc</h3>
     <p data-lang="ru" class="active-block">Чистая читаемая документация API в две колонки</p>
     <p data-lang="en">Clean readable API docs in two-column layout</p>
@@ -389,7 +389,7 @@ footer a:hover { color: var(--accent); }
     <div class="links"><span class="dot gray"></span> /api/redoc/</div>
   </a>
 
-  <a href="http://127.0.0.1:8000/admin/" target="_blank" class="card">
+  <a href="/admin/" target="_blank" class="card">
     <h3>🔐 Django Admin</h3>
     <p data-lang="ru" class="active-block">Панель управления. Логин: <b>admin</b>, пароль: <b>admin123</b></p>
     <p data-lang="en">Admin panel. Login: <b>admin</b>, password: <b>admin123</b></p>
@@ -397,7 +397,7 @@ footer a:hover { color: var(--accent); }
     <div class="links"><span class="dot gray"></span> /admin/</div>
   </a>
 
-  <a href="http://127.0.0.1:8000/api/schema/" target="_blank" class="card">
+  <a href="/api/schema/" target="_blank" class="card">
     <h3>📄 OpenAPI Schema</h3>
     <p data-lang="ru" class="active-block">JSON-схема API для импорта в Postman или генерации кода</p>
     <p data-lang="en">JSON schema for Postman import or code generation</p>
@@ -405,7 +405,7 @@ footer a:hover { color: var(--accent); }
     <div class="links"><span class="dot gray"></span> /api/schema/</div>
   </a>
 
-  <a href="http://127.0.0.1:8000/api/auth/login/" target="_blank" class="card">
+  <a href="/api/auth/login/" target="_blank" class="card">
     <h3>🔑 JWT Авторизация</h3>
     <p data-lang="ru" class="active-block">Получение JWT токена: POST /api/auth/login/</p>
     <p data-lang="en">Get JWT token: POST /api/auth/login/</p>
@@ -501,7 +501,7 @@ function setLang(lang) {
 
 async function checkStatus() {
   try {
-    const r = await fetch('http://127.0.0.1:5500/', { method: 'HEAD', mode: 'no-cors' });
+    const r = await fetch('/frontend/index.html', { method: 'HEAD', mode: 'no-cors' });
     document.getElementById('dot-frontend').className = 'dot green';
   } catch(e) {
     document.getElementById('dot-frontend').className = 'dot red';
