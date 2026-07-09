@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Log In — London Grill{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h2 data-i18n="login">Log In</h2>
+    <div class="section-divider"></div>
+    <form method="post">
+      {% csrf_token %}
+      <input class="field" type="text" name="username" placeholder="Username" required>
+      <input class="field" type="password" name="password" placeholder="Password" required>
+      {% if form.errors %}
+        <div class="form-msg err" style="margin-bottom:12px;">Invalid username or password.</div>
+      {% endif %}
+      <button type="submit" class="btn btn-primary btn-block">Log In</button>
+    </form>
+    <p class="auth-switch"><span data-i18n="noAccount">Don't have an account?</span> <a href="{% url 'register' %}" data-i18n="signUp">Sign Up</a></p>
+  </div>
+</div>
+{% endblock %}

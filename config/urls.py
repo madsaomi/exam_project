@@ -1,10 +1,15 @@
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.contrib.auth import views as auth_views
+from django.urls import path, include
 from django.http import FileResponse
-from django.views.static import serve
-import os
+from django.conf import settings
+from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 from config.settings import BASE_DIR
+from config.page_views import (
+    home_view, menu_view, news_list_view, news_detail_view,
+    about_view, contact_view, register_view,
+)
 
 def portal_view(request):
     f = open(BASE_DIR / 'index.html', 'rb')
@@ -17,6 +22,22 @@ def portal_view(request):
 urlpatterns = [
     path('', portal_view, name='portal'),
     path('admin/', admin.site.urls),
+
+    # Template pages
+    path('pages/', home_view, name='page-home'),
+    path('pages/menu/', menu_view, name='page-menu'),
+    path('pages/menu/<int:cat_id>/', menu_view, name='page-menu-category'),
+    path('pages/news/', news_list_view, name='page-news'),
+    path('pages/news/<int:pk>/', news_detail_view, name='page-news-detail'),
+    path('pages/about/', about_view, name='page-about'),
+    path('pages/contact/', contact_view, name='page-contact'),
+
+    # Auth (session-based)
+    path('login/', auth_views.LoginView.as_view(template_name='pages/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('register/', register_view, name='register'),
+
+    # API
     path('api/auth/', include('accounts.urls')),
     path('api/menu/', include('menu.urls')),
     path('api/news/', include('news.urls')),
@@ -25,5 +46,7 @@ urlpatterns = [
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    re_path(r'^frontend/(?P<path>.*)$', serve, {'document_root': os.path.join(BASE_DIR, 'frontend')}),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

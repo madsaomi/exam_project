@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us — London Grill{% endblock %}
+
+{% block content %}
+<div class="container breadcrumb"><a href="{% url 'page-home' %}">Home</a> | <span class="current">Contact Us</span></div>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="contact">Contact Us</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="contact-layout">
+      <div class="contact-cards">
+        <div class="contact-card">
+          <div class="icon">&#128222;</div>
+          <div><h4>Phone Number</h4><span>+1 212-344-1230</span></div>
+        </div>
+        <div class="contact-card">
+          <div class="icon">&#9993;</div>
+          <div><h4>Email Address</h4><span>hello@londongrill.co.uk</span></div>
+        </div>
+        <div class="contact-card">
+          <div class="icon">&#128247;</div>
+          <div><h4>Instagram</h4><span>londongrill</span></div>
+        </div>
+        <div class="contact-card">
+          <div class="icon">&#128038;</div>
+          <div><h4>Twitter</h4><span>londongrill</span></div>
+        </div>
+        <div class="contact-card">
+          <div class="icon">f</div>
+          <div><h4>Facebook</h4><span>londongrill</span></div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap">
+        <h3 data-i18n="formTitle">Send Message</h3>
+        <p>If you have any questions, you can send us an SMS or contact us by phone, you can also contact us via social networks.</p>
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-row">
+            {{ form.name }}
+            {{ form.email }}
+          </div>
+          <div class="form-row">
+            {{ form.phone }}
+            {{ form.subject }}
+          </div>
+          {{ form.message }}
+          <button type="submit" class="btn btn-primary" data-i18n="send">Send message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <h2 style="font-size:30px;" data-i18n="mapTitle">Find Us On The Map</h2>
+    </div>
+    <div class="map-wrap">
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-0.136%2C51.498%2C-0.116%2C51.518&layer=mapnik&marker=51.508%2C-0.126"
+        loading="lazy" title="Карта расположения"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <p class="eyebrow">Newsletter</p>
+  <h2 data-i18n="newsletterTitle">Subscribe To Our Newsletter</h2>
+  <p class="sub">And never miss latest Updates!</p>
+  <form class="newsletter-form">
+    <input type="email" placeholder="Email Address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+{% endblock %}

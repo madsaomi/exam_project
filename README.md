@@ -2,18 +2,19 @@
 
 ---
 
-## 🇷🇺 Русский
+## Русский
 
 ### Описание
 
-REST API для сайта ресторана "London Project".  
-Реализованы: меню (категории + блюда), новости, форма обратной связи, страница "О нас", авторизация по JWT.
+REST API + Django Templates для сайта ресторана "London Grill House".  
+Реализованы: меню (категории + блюда), новости, форма обратной связи, страница "О нас", авторизация (JWT + session).
 
 ### Технологии
 
 - Django 6+
 - Django REST Framework
-- JWT (SimpleJWT)
+- JWT (SimpleJWT) + Django Session Auth
+- Django Templates (серверный рендеринг)
 - drf-spectacular (Swagger/ReDoc)
 - PostgreSQL (dev — SQLite)
 - Docker
@@ -21,23 +22,30 @@ REST API для сайта ресторана "London Project".
 ### Быстрый старт
 
 ```bash
-# 1. Клонировать репозиторий
 git clone <repo-url>
-cd london_project
-
-# 2. Создать виртуальное окружение и установить зависимости
+cd exam_project
 python -m venv venv
-source venv/bin/activate   # Linux/macOS
-venv\Scripts\activate      # Windows
+source venv/bin/activate
 pip install -r requirements.txt
-
-# 3. Настроить .env
 cp .env.example .env
-
-# 4. Миграции и запуск
 python manage.py migrate
 python manage.py runserver
 ```
+
+### Страницы сайта
+
+| URL | Описание |
+|---|---|
+| `/pages/` | Главная страница |
+| `/pages/menu/` | Меню (все блюда) |
+| `/pages/menu/<id>/` | Меню (по категории) |
+| `/pages/news/` | Новости |
+| `/pages/news/<id>/` | Детали новости |
+| `/pages/about/` | О нас |
+| `/pages/contact/` | Контакты (форма) |
+| `/login/` | Вход |
+| `/register/` | Регистрация |
+| `/logout/` | Выход |
 
 ### API Endpoints
 
@@ -58,47 +66,39 @@ python manage.py runserver
 | GET | `/api/docs/` | Swagger UI |
 | GET | `/api/redoc/` | ReDoc UI |
 
-### Деплой (Railway)
-
-Проект полностью настроен для деплоя на [Railway](https://railway.app/):
-1. Создайте проект и добавьте базу данных **PostgreSQL**.
-2. Подключите ваш GitHub репозиторий.
-3. В настройках сервиса (Variables) добавьте следующие переменные:
-   - `SECRET_KEY` (ваша секретная строка)
-   - `DEBUG=False`
-   - `ALLOWED_HOSTS=*`
-   - `CSRF_TRUSTED_ORIGINS=https://<your-app-domain>.railway.app`
-   - `DATABASE_URL` (строка подключения к базе данных, выдается Railway)
-4. Railway автоматически соберет образ из `Dockerfile`, применит статику через `whitenoise` и запустит сервер с помощью Gunicorn.
-
 ### Структура проекта
 
 ```
-london_project/
-├── config/       # Настройки Django (settings, urls, wsgi, asgi)
-├── accounts/     # Пользователи и JWT (register/login/refresh)
-├── menu/         # Категории и блюда
-├── news/         # Новости
-├── contact/      # Контакты (форма обратной связи)
-├── about/        # О нас
+exam_project/
+├── config/           # Настройки Django (settings, urls, page_views)
+├── accounts/         # Пользователи, JWT, регистрация
+├── menu/             # Категории и блюда
+├── news/             # Новости
+├── contact/          # Контакты (форма обратной связи)
+├── about/            # О нас
+├── templates/        # Django шаблоны
+│   ├── base.html     # Базовый шаблон (header, footer)
+│   └── pages/        # Страницы сайта
+├── static/           # Статические файлы (CSS, JS)
 ├── manage.py
 └── requirements.txt
 ```
 
 ---
 
-## 🇺🇿 O'zbekcha
+## O'zbekcha
 
 ### Tavsif
 
-"London Project" restorani sayti uchun REST API.  
-Amalga oshirilgan: menyu (kategoriyalar + taomlar), yangiliklar, aloqa formasi, "Biz haqimizda" sahifasi, JWT orqali autentifikatsiya.
+"London Grill House" restorani sayti uchun REST API + Django Templates.  
+Amalga oshirilgan: menyu (kategoriyalar + taomlar), yangiliklar, aloqa formasi, "Biz haqimizda" sahifasi, JWT + session autentifikatsiya.
 
 ### Texnologiyalar
 
 - Django 6+
 - Django REST Framework
-- JWT (SimpleJWT)
+- JWT (SimpleJWT) + Django Session Auth
+- Django Templates (server-side rendering)
 - drf-spectacular (Swagger/ReDoc)
 - PostgreSQL (dev — SQLite)
 - Docker
@@ -106,23 +106,30 @@ Amalga oshirilgan: menyu (kategoriyalar + taomlar), yangiliklar, aloqa formasi, 
 ### Tez boshlash
 
 ```bash
-# 1. Repositoriyani klonlash
 git clone <repo-url>
-cd london_project
-
-# 2. Virtual muhit yaratish va kutubxonalarni o'rnatish
+cd exam_project
 python -m venv venv
-source venv/bin/activate   # Linux/macOS
-venv\Scripts\activate      # Windows
+source venv/bin/activate
 pip install -r requirements.txt
-
-# 3. .env sozlamalari
 cp .env.example .env
-
-# 4. Migratsiyalar va ishga tushirish
 python manage.py migrate
 python manage.py runserver
 ```
+
+### Sahifalar
+
+| URL | Tavsif |
+|---|---|
+| `/pages/` | Bosh sahifa |
+| `/pages/menu/` | Menyu (barcha taomlar) |
+| `/pages/menu/<id>/` | Menyu (kategoriya bo'yicha) |
+| `/pages/news/` | Yangiliklar |
+| `/pages/news/<id>/` | Yangilik detali |
+| `/pages/about/` | Biz haqimizda |
+| `/pages/contact/` | Aloqa (forma) |
+| `/login/` | Kirish |
+| `/register/` | Ro'yxatdan o'tish |
+| `/logout/` | Chiqish |
 
 ### API Manzillari
 
@@ -143,29 +150,20 @@ python manage.py runserver
 | GET | `/api/docs/` | Swagger UI |
 | GET | `/api/redoc/` | ReDoc UI |
 
-### Deploy (Railway)
-
-Loyiha [Railway](https://railway.app/) ga yuklash uchun to'liq moslashtirilgan:
-1. Loyiha yarating va **PostgreSQL** ma'lumotlar bazasini qo'shing.
-2. GitHub repositoriyni ulang.
-3. Xizmat sozlamalarida (Variables) quyidagi o'zgaruvchilarni qo'shing:
-   - `SECRET_KEY` (maxfiy kalit)
-   - `DEBUG=False`
-   - `ALLOWED_HOSTS=*`
-   - `CSRF_TRUSTED_ORIGINS=https://<your-app-domain>.railway.app`
-   - `DATABASE_URL` (Railway beradigan bazaga ulanish havolasi)
-4. Railway avtomatik ravishda `Dockerfile` orqali build qiladi, `whitenoise` yordamida statik fayllarni yig'adi va Gunicorn orqali serverni ishga tushiradi.
-
 ### Loyiha tuzilishi
 
 ```
-london_project/
-├── config/       # Django sozlamalari (settings, urls, wsgi, asgi)
-├── accounts/     # Foydalanuvchilar va JWT (register/login/refresh)
-├── menu/         # Kategoriyalar va taomlar
-├── news/         # Yangiliklar
-├── contact/      # Aloqa (feedback formasi)
-├── about/        # Biz haqimizda
+exam_project/
+├── config/           # Django sozlamalari (settings, urls, page_views)
+├── accounts/         # Foydalanuvchilar, JWT, ro'yxatdan o'tish
+├── menu/             # Kategoriyalar va taomlar
+├── news/             # Yangiliklar
+├── contact/          # Aloqa (feedback formasi)
+├── about/            # Biz haqimizda
+├── templates/        # Django shablonlar
+│   ├── base.html     # Asosiy shablon (header, footer)
+│   └── pages/        # Sayt sahifalari
+├── static/           # Statik fayllar (CSS, JS)
 ├── manage.py
 └── requirements.txt
 ```

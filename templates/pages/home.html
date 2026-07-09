@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}London Grill — The Key To Fine Dining{% endblock %}
+
+{% block content %}
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="container">
+    <div class="hero-copy">
+      <p class="eyebrow">Chase The New Flavour</p>
+      <h1>The Key To<br>Fine Dining</h1>
+      <p>Свежие блюда, приготовленные из отборных продуктов каждый день. Загляни в наше меню и найди новый любимый вкус.</p>
+      <a href="{% url 'page-menu' %}" class="btn btn-outline-white">Explore Menu</a>
+    </div>
+    <div class="hero-media">
+      <div class="plate-ring"></div>
+      <img src="https://picsum.photos/seed/londongrill-hero/500/500" alt="Фирменное блюдо London Grill">
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- POPULAR DISHES -->
+{% if dishes %}
+<section class="section-alt">
+  <div class="container">
+    <div class="dishes-head">
+      <div>
+        <p class="eyebrow">Меню</p>
+        <h2 style="font-size:32px;" data-i18n="popularTitle">Popular Dishes</h2>
+      </div>
+    </div>
+    <div class="dish-grid">
+      {% for dish in dishes %}
+      <div class="dish-card">
+        {% if dish.image %}
+          <img src="{{ dish.image.url }}" alt="{{ dish.name }}">
+        {% else %}
+          <img src="https://picsum.photos/seed/{{ dish.name|urlencode }}/500/380" alt="{{ dish.name }}">
+        {% endif %}
+        <h4>{{ dish.name }}</h4>
+        <div class="dish-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <div class="dish-price">${{ dish.price }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- MENU PREVIEW -->
+{% if categories %}
+<section>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Меню</p>
+      <h2 class="section-title" data-i18n="menuTitle">Our Regular Menu Pack</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:40px;">
+      <a href="{% url 'page-menu' %}" class="btn btn-primary" style="border-radius:30px; padding:10px 22px; font-size:13px;">All</a>
+      {% for cat in categories %}
+        <a href="{% url 'page-menu-category' cat.id %}" class="btn btn-outline" style="border-radius:30px; padding:10px 22px; font-size:13px;">{{ cat.name }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- TESTIMONIALS -->
+<section class="section-alt">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Testimony</p>
+      <h2 class="section-title" data-i18n="testimonialsTitle">Happy Customers</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="who">Maria</div>
+        <p>Очень уютное место, а шефы явно любят своё дело — вкус блюд запоминается надолго. Обязательно вернёмся ещё.</p>
+        <div class="meta"><span>06/03/2022</span><span>11:15</span></div>
+      </div>
+      <div class="testi-card">
+        <div class="who">James</div>
+        <p>Заказывал доставку несколько раз — всегда горячо, свежо и точно в срок. Кебаб просто огонь!</p>
+        <div class="meta"><span>02/03/2022</span><span>19:40</span></div>
+      </div>
+      <div class="testi-card">
+        <div class="who">Aisha</div>
+        <p>Атмосфера, сервис и вкус — всё на высшем уровне. Рекомендую заглянуть в выходные, столик стоит бронировать заранее.</p>
+        <div class="meta"><span>28/02/2022</span><span>13:05</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+{% if news %}
+<section>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">News</p>
+      <h2 class="section-title" data-i18n="newsTitle">Gericht Updates</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="news-grid">
+      {% for item in news %}
+      <div class="news-card">
+        {% if item.image %}
+          <img src="{{ item.image.url }}" alt="{{ item.title }}">
+        {% else %}
+          <img src="https://picsum.photos/seed/{{ item.title|urlencode }}/400/260" alt="{{ item.title }}">
+        {% endif %}
+        <div class="news-body">
+          <h4>{{ item.title }}</h4>
+          <p>{{ item.content|truncatewords:20 }}</p>
+          <div class="news-foot">
+            <a href="{% url 'page-news-detail' item.pk %}" class="read-more" data-i18n="readMore">Read More</a>
+            <span class="date">{{ item.created_at|date:"d M Y" }}</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="view-more-wrap">
+      <a href="{% url 'page-news' %}" class="btn btn-outline">View More</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="container" style="text-align:center;">
+    <h2 style="margin-bottom:16px;" data-i18n="newsletterTitle">Subscribe To Our Newsletter</h2>
+    <p style="color:#666; margin-bottom:24px;" data-i18n="newsletterSub">And never miss latest Updates!</p>
+    <form class="news-form">
+      <input type="email" placeholder="Email Address" required>
+      <button type="submit" class="btn btn-primary" style="padding:0 32px;" data-i18n="subscribe">Subscribe</button>
+    </form>
+  </div>
+</section>
+{% endblock %}

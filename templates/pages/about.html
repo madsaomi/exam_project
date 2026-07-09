@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us — London Grill{% endblock %}
+
+{% block content %}
+<div class="container breadcrumb"><a href="{% url 'page-home' %}">Home</a> | <span class="current">About Us</span></div>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="about">About Us</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="about-content">
+      {% if about %}
+        <h3 style="margin-bottom:20px;">{{ about.title }}</h3>
+        {{ about.content|linebreaksbr }}
+        {% if about.image %}
+          <img src="{{ about.image.url }}" alt="{{ about.title }}" style="margin-top:24px; border-radius:14px;">
+        {% endif %}
+      {% else %}
+        <p>Information will appear here later.</p>
+        <img src="https://picsum.photos/seed/londongrill-about/900/600" alt="About">
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <p class="eyebrow">Newsletter</p>
+  <h2 data-i18n="newsletterTitle">Subscribe To Our Newsletter</h2>
+  <p class="sub">And never miss latest Updates!</p>
+  <form class="newsletter-form">
+    <input type="email" placeholder="Email Address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+{% endblock %}

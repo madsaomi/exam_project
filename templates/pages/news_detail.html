@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ article.title }} — London Grill{% endblock %}
+
+{% block content %}
+<div class="container breadcrumb"><a href="{% url 'page-home' %}">Home</a> | <a href="{% url 'page-news' %}">News</a> | <span class="current">{{ article.title }}</span></div>
+
+<section>
+  <div class="container" style="max-width:800px;">
+    <div class="section-head">
+      <h2 class="section-title">{{ article.title }}</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    {% if article.image %}
+      <img src="{{ article.image.url }}" alt="{{ article.title }}" style="width:100%; border-radius:14px; margin-bottom:24px;">
+    {% endif %}
+
+    <p style="color:var(--gray); font-size:14px; margin-bottom:24px;">{{ article.created_at|date:"d M Y" }}</p>
+
+    <div style="font-size:16px; line-height:1.8; color:var(--ink-soft);">
+      {{ article.content|linebreaksbr }}
+    </div>
+
+    <div style="margin-top:40px;">
+      <a href="{% url 'page-news' %}" class="btn btn-outline">&larr; Back to News</a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <p class="eyebrow">Newsletter</p>
+  <h2 data-i18n="newsletterTitle">Subscribe To Our Newsletter</h2>
+  <p class="sub">And never miss latest Updates!</p>
+  <form class="newsletter-form">
+    <input type="email" placeholder="Email Address" required>
+    <button type="submit">Subscribe</button>
+  </form>
+</div>
+{% endblock %}
