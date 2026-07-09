@@ -4,12 +4,25 @@ from django.urls import path, include
 from django.http import FileResponse
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import render
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
 from config.settings import BASE_DIR
 from config.page_views import (
     home_view, menu_view, news_list_view, news_detail_view,
     about_view, contact_view, register_view,
 )
+
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
+
+
+def custom_500(request):
+    return render(request, '500.html', status=500)
+
+
+def custom_403(request, exception):
+    return render(request, '403.html', status=403)
 
 def portal_view(request):
     f = open(BASE_DIR / 'index.html', 'rb')
@@ -50,3 +63,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'config.urls.custom_404'
+handler500 = 'config.urls.custom_500'
+handler403 = 'config.urls.custom_403'
