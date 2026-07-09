@@ -4,15 +4,15 @@
 {% block title %}Menu — London Grill{% endblock %}
 
 {% block content %}
-<div class="container breadcrumb"><a href="{% url 'page-home' %}">Home</a> | <span class="current">Menu</span></div>
+<div class="container breadcrumb"><a href="{% url 'page-home' %}" data-i18n="home">Home</a> | <span class="current" data-i18n="menu">Menu</span></div>
 
 <section>
   <div class="container">
     <div class="menu-layout">
       <aside class="menu-sidebar">
-        <h3 data-i18n="menuTitle">Our Regular<br>Menu Pack</h3>
+        <h3 data-i18n="menuTitle">Our Menu</h3>
         <div class="menu-cats">
-          <a href="{% url 'page-menu' %}" class="{% if not active_category %}active{% endif %}" style="display:block; padding:8px 16px; color:inherit; text-decoration:none;">All</a>
+          <a href="{% url 'page-menu' %}" class="{% if not active_category %}active{% endif %}" style="display:block; padding:8px 16px; color:inherit; text-decoration:none;" data-i18n="all">All</a>
           {% for cat in categories %}
             <a href="{% url 'page-menu-category' cat.id %}" class="{% if active_category.id == cat.id %}active{% endif %}" style="display:block; padding:8px 16px; color:inherit; text-decoration:none;">{{ cat.name }}</a>
           {% endfor %}
@@ -30,7 +30,7 @@
             <div class="price">${{ dish.price }}</div>
           </div>
         {% empty %}
-          <div class="empty-note">No dishes in this category yet.</div>
+          <div class="empty-note" data-i18n="noDishes">No dishes in this category yet.</div>
         {% endfor %}
       </div>
     </div>
@@ -41,10 +41,10 @@
 <section class="section-alt insta-section">
   <div class="container">
     <div class="insta-copy">
-      <p class="eyebrow">Instagram</p>
+      <p class="eyebrow" data-i18n="instagram">Instagram</p>
       <h2 style="font-size:32px;" data-i18n="galleryTitle">Photo Gallery</h2>
-      <p>Свежие кадры с кухни и из зала — публикуем каждую неделю.</p>
-      <a href="#" class="btn btn-outline">View More</a>
+      <p data-i18n="galleryDesc">Fresh shots from the kitchen and the hall.</p>
+      <a href="#" class="btn btn-outline" data-i18n="viewMore">View More</a>
     </div>
     <div class="insta-grid">
       <a href="#"><img src="https://picsum.photos/seed/insta-menu1/300/340" alt=""></a>
@@ -59,12 +59,12 @@
 
 <!-- NEWSLETTER -->
 <div class="newsletter">
-  <p class="eyebrow">Newsletter</p>
+  <p class="eyebrow" data-i18n="newsletter">Newsletter</p>
   <h2 data-i18n="newsletterTitle">Subscribe To Our Newsletter</h2>
-  <p class="sub">And never miss latest Updates!</p>
+  <p class="sub" data-i18n="newsletterSub">And never miss latest Updates!</p>
   <form class="newsletter-form">
-    <input type="email" placeholder="Email Address" required>
-    <button type="submit">Subscribe</button>
+    <input type="email" data-i18n-placeholder="newsletterPlaceholder" placeholder="Email Address" required>
+    <button type="submit" data-i18n="subscribe">Subscribe</button>
   </form>
 </div>
 {% endblock %}

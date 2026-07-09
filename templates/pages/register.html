@@ -10,10 +10,10 @@
     <div class="section-divider"></div>
     <form method="post">
       {% csrf_token %}
-      <input class="field" type="text" name="username" placeholder="Username" required value="{{ form.username.value|default:'' }}">
-      <input class="field" type="email" name="email" placeholder="Email address" required value="{{ form.email.value|default:'' }}">
-      <input class="field" type="password" name="password" placeholder="Password" required>
-      <input class="field" type="password" name="password2" placeholder="Confirm password" required>
+      <input class="field" type="text" name="username" data-i18n-placeholder="username" placeholder="Username" required value="{{ form.username.value|default:'' }}">
+      <input class="field" type="email" name="email" data-i18n-placeholder="email" placeholder="Email address" required value="{{ form.email.value|default:'' }}">
+      <input class="field" type="password" name="password" data-i18n-placeholder="password" placeholder="Password" required>
+      <input class="field" type="password" name="password2" data-i18n-placeholder="password" placeholder="Confirm password" required>
       {% if form.errors %}
         <div class="form-msg err" style="margin-bottom:12px;">
           {% for field, errors in form.errors.items %}
@@ -21,7 +21,7 @@
           {% endfor %}
         </div>
       {% endif %}
-      <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+      <button type="submit" class="btn btn-primary btn-block" data-i18n="createAccount">Create Account</button>
     </form>
     <p class="auth-switch"><span data-i18n="haveAccount">Already have an account?</span> <a href="{% url 'login' %}" data-i18n="login">Log In</a></p>
   </div>

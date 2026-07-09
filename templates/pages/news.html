@@ -4,7 +4,7 @@
 {% block title %}News — London Grill{% endblock %}
 
 {% block content %}
-<div class="container breadcrumb"><a href="{% url 'page-home' %}">Home</a> | <span class="current">News</span></div>
+<div class="container breadcrumb"><a href="{% url 'page-home' %}" data-i18n="home">Home</a> | <span class="current" data-i18n="news">News</span></div>
 
 <section>
   <div class="container">
@@ -30,7 +30,7 @@
         </div>
       </div>
       {% empty %}
-        <div class="empty-note">No news yet. Check back later!</div>
+        <div class="empty-note" data-i18n="noNews">No news yet.</div>
       {% endfor %}
     </div>
   </div>
@@ -38,12 +38,12 @@
 
 <!-- NEWSLETTER -->
 <div class="newsletter">
-  <p class="eyebrow">Newsletter</p>
+  <p class="eyebrow" data-i18n="newsletter">Newsletter</p>
   <h2 data-i18n="newsletterTitle">Subscribe To Our Newsletter</h2>
-  <p class="sub">And never miss latest Updates!</p>
+  <p class="sub" data-i18n="newsletterSub">And never miss latest Updates!</p>
   <form class="newsletter-form">
-    <input type="email" placeholder="Email Address" required>
-    <button type="submit">Subscribe</button>
+    <input type="email" data-i18n-placeholder="newsletterPlaceholder" placeholder="Email Address" required>
+    <button type="submit" data-i18n="subscribe">Subscribe</button>
   </form>
 </div>
 {% endblock %}
