@@ -20,6 +20,7 @@
 - `RegisterView` (POST — регистрация)
 - endpoints: `/api/auth/register/`, `/api/auth/login/`, `/api/auth/refresh/`
 - `IsAdminOrReadOnly` — кастомный permission
+- `RegisterForm` — Django Form для регистрации через сайт
 - Админка для пользователей
 
 ### App `menu` — Категории и блюда
@@ -39,6 +40,7 @@
 ### App `contact` — Контакты
 - Модель `ContactMessage` (name, email, message, created_at, is_read)
 - `ContactMessageListCreateView` (POST — любой, GET — только админ)
+- `ContactForm` — Django Form для отправки через сайт
 - endpoint: `/api/contact/`
 - Админка
 
@@ -49,7 +51,7 @@
 - Админка
 
 ### Инфраструктура
-- `requirements.txt` со всеми зависимостями
+- `requirements.txt` со всеми зависимостями (+ Pillow)
 - Swagger UI: `/api/docs/`
 - ReDoc: `/api/redoc/`
 - OpenAPI Schema: `/api/schema/`
@@ -57,30 +59,50 @@
 - `README.md` (русский + узбекский)
 - Миграции созданы и накатаны, `python manage.py check` проходит без ошибок
 
-### Чистка и доработка кода
-- Убран неиспользуемый импорт `mixins` в `about/views.py`
-- `from datetime import timedelta` перенесён наверх (PEP8)
-- `BASE_DIR` теперь импортируется из `settings` (без дублирования)
-- `accounts/views.py` — прямой импорт `CustomUser`
-- Длинные строки в `menu/tests.py` разбиты
-- Убрана утечка API-эндпоинтов в сообщениях пользователям
-- Исправлен `main.js` (потенциальный TypeError)
-- Добавлен `data-login-btn` в `register.html`
-- Бренд приведён к единому виду: `LONDON GRILL HOUSE`
-- Исправлен адрес в футере
-- Удалена пустая директория `frontend/assets/`
+### Django Templates — Серверный рендеринг
+- `templates/base.html` — базовый шаблон (header, nav, footer, i18n)
+- `templates/pages/home.html` — главная: hero, популярные блюда, меню, новости, testimonials
+- `templates/pages/menu.html` — меню: sidebar с категориями + сетка блюд
+- `templates/pages/news.html` — список новостей
+- `templates/pages/news_detail.html` — детальная страница новости
+- `templates/pages/about.html` — "О нас"
+- `templates/pages/contact.html` — форма обратной связи (CSRF)
+- `templates/pages/login.html` — вход (Django session auth)
+- `templates/pages/register.html` — регистрация
+- `config/page_views.py` — все template view функции
+- `static/css/style.css`, `static/js/i18n.js` — статика
+
+### Страницы ошибок
+- `templates/404.html` — "Страница не найдена" (красивая страница с.brand)
+- `templates/403.html` — "Доступ запрещён"
+- `templates/500.html` — "Ошибка сервера" (standalone HTML, без template tags — безопасен)
+- `handler404`, `handler500`, `handler403` в `config/urls.py`
+- Пользователь НИКОГДА не видит traceback
 
 ### i18n — Мультиязычность (EN / RU / UZ)
-- Создан `js/i18n.js` со словарём на 40+ ключей × 3 языка
-- Переключатель языка в шапке всех 7 страниц
+- `static/js/i18n.js` — словарь на 90+ ключей × 3 языка
+- Переключатель языка EN/RU/UZ в шапке всех страниц
 - Язык сохраняется в `localStorage`
-- Все надписи, кнопки, заголовки, футер — переключаются
-- JS-сообщения (пустые списки, ошибки, успех) — через `__()`
+- **Полный покрытие**: hero, testimonials, contact, newsletter, breadcrumbs, empty states, ошибки
+- `data-i18n` на всех видимых текстах
+- `data-i18n-placeholder` на всех input полях
 
-### News Modal
-- По клику "Read More" открывается модальное окно
-- Показывает полный текст, заголовок, дату, картинку
-- Закрывается по ✕, на фон, по Escape
+### Тесты
+- `accounts/tests.py` — 7 тестов (API)
+- `menu/tests.py` — 10 тестов (API)
+- `news/tests.py` — 10 тестов (API)
+- `contact/tests.py` — 7 тестов (API)
+- `about/tests.py` — 5 тестов (API)
+- `config/tests.py` — 17 тестов (Django template views)
+- **Всего: 59/59 — проходят ✅**
+
+### Чистка и доработка кода
+- Убраны все JS-файлы фронтенда (api.js, main.js, home.js, menu.js, news.js, about.js, contact.js, auth.js)
+- Удалены HTML-страницы старого фронтенда
+- CSS и i18n.js перенесены в `static/`
+- CSRF_TRUSTED_ORIGINS исправлен для Django 4.0+
+- Logout кнопка использует POST (Django 5+)
+- STATIC_ROOT/STATICFILES_DIRS разделены для collectstatic
 
 ---
 
@@ -98,60 +120,55 @@
 | 8 | **Тесты accounts** | ✅ 7 тестов |
 | 9 | **Тесты menu** | ✅ 10 тестов |
 | 10 | **Тесты news** | ✅ 10 тестов |
-| 11 | **Тесты contact** | ✅ 7 тестов (починены) |
+| 11 | **Тесты contact** | ✅ 7 тестов |
 | 12 | **Тесты about** | ✅ 5 тестов |
 | 13 | **Gunicorn** | ✅ в `requirements.txt` |
 | 14 | **Nginx конфиг** | ✅ `deploy/nginx.conf` |
 | 15 | **CI/CD** | ✅ `.github/workflows/ci.yml` |
-| 16 | **Frontend** | ✅ HTML/CSS/JS, подключён к API |
+| 16 | **Django Templates** | ✅ 9 шаблонов, server-side rendering |
 | 17 | **Демо-данные** | ✅ 8 категорий, 34 блюда, 5 новостей |
-| 18 | **Серверы запущены** | ✅ Backend :8000, Frontend :5500 |
-| 19 | **Чистка кода** | ✅ Импорты, PEP8, BASE_DIR, brand, адрес |
-| 20 | **i18n (EN/RU/UZ)** | ✅ Все 7 страниц, 40+ ключей, `localStorage` |
-| 21 | **News Modal (Read More)** | ✅ Модальное окно с полным текстом |
-| 22 | **CI requirements.txt** | ✅ Добавлены все зависимости |
+| 18 | **Страницы ошибок** | ✅ 404, 403, 500 без traceback |
+| 19 | **Чистка кода** | ✅ Удалён JS-фронтенд |
+| 20 | **i18n (EN/RU/UZ)** | ✅ 90+ ключей, полный покрытие |
+| 21 | **Template тесты** | ✅ 17 тестов для views |
+| 22 | **Pillow** | ✅ для ImageField |
+| 23 | **Session Auth** | ✅ Django login/logout/register |
+| 24 | **Logout POST** | ✅ Django 5 совместимость |
+| 25 | **CSRF** | ✅ во всех формах |
 
-**Всего тестов: 42/42 — проходят ✅**
+**Всего тестов: 59/59 — проходят ✅**
 
-**Точное ТЗ по страницам:**
+**URL-ы сайта:**
 
-**1. Авторизация (2 endpoints):**
-- Страница регистрации: поля username, email, password, кнопка "Зарегистрироваться"
-- Страница логина: поля username, password, кнопка "Войти"
-- После логина сохранять access_token и refresh_token (localStorage или cookies)
-- При 401 автоматически делать refresh
-- Кнопка "Выйти" (очистить токены)
+| URL | Страница |
+|-----|----------|
+| `/pages/` | Главная |
+| `/pages/menu/` | Меню |
+| `/pages/menu/<id>/` | Меню по категории |
+| `/pages/news/` | Новости |
+| `/pages/news/<id>/` | Детали новости |
+| `/pages/about/` | О нас |
+| `/pages/contact/` | Контакты |
+| `/login/` | Вход |
+| `/register/` | Регистрация |
+| `/logout/` | Выход |
 
-**2. Страница "Меню":**
-- GET `/api/menu/categories/` — список категорий
-- GET `/api/menu/dishes/` — список блюд (можно отфильтровать по `?category=ID`)
-- Отобразить: название, цену, описание, картинку, доступность
-- Для админов: кнопки "Добавить", "Редактировать", "Удалить"
+**Признак готовности:** все страницы работают, авторизация проходит полный цикл (register → login → logout), 59 тестов проходят, i18n работает на 3 языках, ошибки не показывают traceback.
 
-**3. Страница "Новости":**
-- GET `/api/news/` — список новостей
-- GET `/api/news/{id}/` — детальная страница новости
-- Отобразить: заголовок, дату, контент, картинку
-- Для админов: CRUD
+---
 
-**4. Страница "О нас":**
-- GET `/api/about/` — получить контент
-- Отобразить: title, content
-- Для админа: возможность редактировать (PUT)
+## ❗ Нужно сделать / Что осталось
 
-**5. Страница "Контакты":**
-- Форма: name, email, message + кнопка "Отправить"
-- POST `/api/contact/`
-- После отправки — уведомление об успехе
-- Для админа: отдельная страница со списком сообщений (GET) и просмотром деталей
-
-**6. Админ-панель (для staff-пользователей):**
-- Управление категориями меню
-- Управление блюдами (с загрузкой картинки)
-- Управление новостями (с загрузкой картинки)
-- Просмотр сообщений из контактов
-
-**Признак готовности:** все страницы работают, авторизация проходит полный цикл (login → request → refresh → logout).
+| # | Задача | Приоритет | Описание |
+|---|--------|-----------|----------|
+| 1 | **Деплой на Railway** | Высокий | Обновить Dockerfile для templates (collectstatic), проверить что staticfiles работает |
+| 2 | **Админ-панель через сайт** | Средний | Сейчас CRUD блюд/категорий/новостей только через `/admin/`. Можно добавить страницы управления для staff |
+| 3 | **Картинки блюд** | Средний | Сейчас используются placeholder-и (picsum.photos). Загрузить реальные картинки в админке |
+| 4 | **Тёмная тема** | Низкий | Добавить переключатель темы (светлая/тёмная) |
+| 5 | **Пагинация на страницах** | Низкий | Сейчас все блюда/новости на одной странице. Добавить постраничную навигацию |
+| 6 | **Поиск по меню** | Низкий | Добавить строку поиска на страницу меню |
+| 7 | **Email подтверждение** | Низкий | При регистрации отправлять письмо с подтверждением |
+| 8 | **Соцсети в footer** | Низкий | Ссылки на Facebook, Twitter, Instagram ведут на `#`. Заменить на реальные |
 
 ---
 
@@ -166,13 +183,17 @@
 | 2 | Backend #3 | Тесты (все 5 apps) |
 | 2 | DevOps | Gunicorn + Nginx |
 | 3 | DevOps | CI/CD |
-| 3 | Frontend | Все страницы |
+| 3 | Frontend | Django Templates (замена JS) |
+| 3 | Frontend | i18n полный покрытие |
+| 3 | Frontend | Страницы ошибок (404/403/500) |
+| 3 | Frontend | Template тесты (17 штук) |
 
 ---
 
 > Вопросы — в чат команды. Каждую выполненную задачу отмечать готово в этом файле.
 
 ---
+
 https://www.figma.com/design/nxbT73EVpP2spkWwjLO2E3/%F0%9F%8D%94London?node-id=0-1&p=f&t=yaigVQ7AyK18DXRI-0
 <!-- figma link -->
 ---
@@ -183,39 +204,38 @@ https://www.figma.com/design/nxbT73EVpP2spkWwjLO2E3/%F0%9F%8D%94London?node-id=0
 
 ## ✅ Bajarilgan vazifalar holati
 
-| # | Vazifa | Holati | Kim bajargan | Izoh |
-|---|---|---|---|---|
-| 1 | **CORS** | ✅ Tayyor | Backend #1 | `django-cors-headers` qo'shilgan |
-| 2 | **.env fayllari** | ✅ Tayyor | Backend #1 | `.env.example` va `.env` yaratilgan |
-| 3 | **Docker** | ✅ Tayyor | DevOps | `Dockerfile`, `docker-compose.yml`, `.dockerignore` yaratilgan |
-| 4 | **CustomUser kengaytirish** | ✅ Tayyor | Backend #2 | `phone`, `avatar` maydonlari qo'shilgan |
-| 5 | **Contact DetailView** | ✅ Tayyor | Backend #2 | `ContactMessageRetrieveView` qo'shilgan |
-| 6 | **Filtrlash** | ✅ Tayyor | Backend #2 | DishViewSet + NewsArticleViewSet ga filtr qo'shilgan |
-| 7 | **Taom unikalligi** | ✅ Tayyor | Backend #2 | `UniqueConstraint` qo'shilgan |
-| 8 | **accounts testlari** | ✅ Tayyor | Backend #3 | 7 ta test, hammasi o'tadi |
-| 9 | **menu testlari** | ✅ Tayyor | Backend #3 | 10 ta test, hammasi o'tadi |
-| 10 | **news testlari** | ✅ Tayyor | Backend #3 | 10 ta test, hammasi o'tadi |
-| 11 | **contact testlari** | ⚠️ Tuzatildi | — | Xatolar bor edi, men tuzatdim |
-| 12 | **about testlari** | ✅ Tayyor | Backend #3 | 5 ta test qo'shilgan |
-| 13 | **Gunicorn** | ✅ Tayyor | DevOps | `requirements.txt` da bor |
-| 14 | **Nginx konfigi / Deploy** | ✅ Tayyor | DevOps | Railway uchun Whitenoise va dj-database-url qo'shildi |
-| 15 | **CI/CD** | ✅ Tayyor | DevOps | `.github/workflows/ci.yml` tayyorlangan |
-| 16–22 | **Frontend** | ✅ Tayyor | — | Barcha sahifalar ishlaydi |
-| 23 | **Code cleanup** | ✅ Tayyor | — | Imports, PEP8, brand, address |
-| 24 | **i18n (EN/RU/UZ)** | ✅ Tayyor | — | 7 sahifa, 40+ kalit, localStorage |
-| 25 | **News Modal** | ✅ Tayyor | — | Read More to'liq matn oynasi |
+| # | Vazifa | Holati | Izoh |
+|---|---|---|---|
+| 1 | **CORS** | ✅ | `django-cors-headers` |
+| 2 | **.env fayllari** | ✅ | `.env.example` + `.env` |
+| 3 | **Docker** | ✅ | `Dockerfile`, `docker-compose.yml` |
+| 4 | **CustomUser** | ✅ | `phone`, `avatar` |
+| 5 | **Contact DetailView** | ✅ | `ContactMessageRetrieveView` |
+| 6 | **Filtrlash** | ✅ | DishViewSet + NewsArticleViewSet |
+| 7 | **Taom unikalligi** | ✅ | `UniqueConstraint` |
+| 8 | **Testlar (API)** | ✅ | 42 ta test |
+| 9 | **Testlar (Templates)** | ✅ | 17 ta test |
+| 10 | **Django Templates** | ✅ | 9 ta shablon, server-side rendering |
+| 11 | **Xato sahifalari** | ✅ | 404, 403, 500 — traceback ko'rsatilmaydi |
+| 12 | **i18n (EN/RU/UZ)** | ✅ | 90+ kalit, to'liq qamrov |
+| 13 | **Session Auth** | ✅ | Django login/logout/register |
+| 14 | **CI/CD** | ✅ | `.github/workflows/ci.yml` |
+| 15 | **Pillow** | ✅ | ImageField uchun |
 
-**Jami testlar: 42/42 — hammasi o'tadi ✅**
+**Jami testlar: 59/59 — hammasi o'tadi ✅**
 
 ---
 
-## ❗ Barcha vazifalar bajarildi ✅
+## ❗ Qoldiq vazifalar
 
-Loyiha to'liq tayyor. 42 test, 3 tilda frontend, Docker, CI/CD, GitHub.
+| # | Vazifa | Muhimlik | Tavsif |
+|---|--------|----------|--------|
+| 1 | **Railway deploy** | Yuqori | Dockerfile ni yangilash, staticfiles tekshirish |
+| 2 | **Admin panel saytda** | O'rta | CRUD boshqaruv sahifalari staff uchun |
+| 3 | **Rasmlar** | O'rta | Haqiqiy rasmlar yuklash (hozir placeholder) |
+| 4 | **Qorong'u tema** | Past | Tema almashtirgich qo'shish |
+| 5 | **Sahifalash** | Past | Yangiliklar/taomlarga pagination |
 
 ---
 
 > Savollar bo'lsa — jamoa chatiga yozing. Omad! 🚀
-
-#https://www.figma.com/design/nxbT73EVpP2spkWwjLO2E3/%F0%9F%8D%94London?node-id=0-1&p=f&t=yaigVQ7AyK18DXRI-0
-#figma link
