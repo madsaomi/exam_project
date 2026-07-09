@@ -11,7 +11,8 @@ if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [h.strip() for h in v.split(',')])
-CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='', cast=lambda v: [h.strip() for h in v.split(',')])
+_csrf_raw = config('CSRF_TRUSTED_ORIGINS', default='http://localhost:8000')
+CSRF_TRUSTED_ORIGINS = [h.strip() for h in _csrf_raw.split(',') if h.strip()]
 
 INSTALLED_APPS = [
     'corsheaders',
