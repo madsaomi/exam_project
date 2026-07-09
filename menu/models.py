@@ -7,6 +7,7 @@ class Category(models.Model):
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
+        verbose_name = 'category'
         verbose_name_plural = 'categories'
         ordering = ('order', 'name')
 
@@ -26,6 +27,7 @@ class Dish(models.Model):
     order = models.PositiveIntegerField(default=0)
 
     class Meta:
+        verbose_name = 'dish'
         verbose_name_plural = 'dishes'
         ordering = ('order', 'name')
         constraints = [

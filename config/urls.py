@@ -7,7 +7,8 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, Sp
 from config.settings import BASE_DIR
 
 def portal_view(request):
-    response = FileResponse(open(BASE_DIR / 'index.html', 'rb'), content_type='text/html; charset=utf-8')
+    f = open(BASE_DIR / 'index.html', 'rb')
+    response = FileResponse(f, content_type='text/html; charset=utf-8')
     response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
     response['Pragma'] = 'no-cache'
     response['Expires'] = '0'

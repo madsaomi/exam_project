@@ -4,6 +4,7 @@
   let popularDishes = [];
   let popularPage = 0;
   const PER_PAGE = 4;
+  const MAX_PREVIEW = 8;
 
   function renderPopular() {
     if (!popularDishes.length) {
@@ -14,8 +15,8 @@
     const slice = popularDishes.slice(start, start + PER_PAGE);
     popularWrap.innerHTML = slice.map((d) => `
       <div class="dish-card">
-        <img src="${resolveImage(d, pick(d, ["id"], Math.random()))}" alt="${escapeHtml(pick(d, ["name", "title"], "Блюдо"))}">
-        <h4>${escapeHtml(pick(d, ["name", "title"], "Блюдо"))}</h4>
+        <img src="${resolveImage(d, seed(d))}" alt="${escapeHtml(pick(d, ["name", "title"], "Dish"))}">
+        <h4>${escapeHtml(pick(d, ["name", "title"], "Dish"))}</h4>
         <div class="dish-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
         <div class="dish-price">${formatPrice(pick(d, ["price"], 0))}</div>
       </div>
@@ -51,10 +52,10 @@
       dishesWrap.innerHTML = `<div class="empty-note">${__("noDishes")}</div>`;
       return;
     }
-    dishesWrap.innerHTML = list.slice(0, 8).map((d) => `
+    dishesWrap.innerHTML = list.slice(0, MAX_PREVIEW).map((d) => `
       <div class="menu-item">
-        <img src="${resolveImage(d, pick(d, ["id"], Math.random()))}" alt="${escapeHtml(pick(d, ["name", "title"], "Блюдо"))}">
-        <h4>${escapeHtml(pick(d, ["name", "title"], "Блюдо"))}</h4>
+        <img src="${resolveImage(d, seed(d))}" alt="${escapeHtml(pick(d, ["name", "title"], "Dish"))}">
+        <h4>${escapeHtml(pick(d, ["name", "title"], "Dish"))}</h4>
         <div class="price">${formatPrice(pick(d, ["price"], 0))}</div>
       </div>
     `).join("");
@@ -72,26 +73,22 @@
 
   try {
     const categories = await MenuAPI.categories();
-    categories.slice(0, 8).forEach((c) => {
+    categories.slice(0, MAX_PREVIEW).forEach((c) => {
       const btn = document.createElement("button");
       btn.textContent = pick(c, ["name", "title"], __("categories").slice(0,-1));
       btn.dataset.cat = pick(c, ["id"], "");
-      btn.style.cssText = "border-radius:30px; padding:10px 22px; font-size:13px; border:1.5px solid var(--red); background:transparent; color:var(--red); font-weight:600;";
+      btn.className = "cat-btn";
       catsWrap.appendChild(btn);
     });
-  } catch (e) { /* categories are optional for the preview */ }
+  } catch (e) { console.warn("Failed to load categories:", e); }
 
   catsWrap.addEventListener("click", (e) => {
     const btn = e.target.closest("button");
     if (!btn) return;
     catsWrap.querySelectorAll("button").forEach((b) => {
-      b.classList.remove("btn-primary");
-      b.style.background = "transparent";
-      b.style.color = "var(--red)";
+      b.classList.remove("cat-btn-active");
     });
-    btn.classList.add("btn-primary");
-    btn.style.background = "var(--red)";
-    btn.style.color = "#fff";
+    btn.classList.add("cat-btn-active");
     loadDishes(btn.dataset.cat || null);
   });
 
@@ -106,9 +103,9 @@
     } else {
       newsWrap.innerHTML = news.slice(0, 3).map((n) => `
         <div class="news-card">
-          <img src="${resolveImage(n, pick(n, ["id"], Math.random()))}" alt="${escapeHtml(pick(n, ["title", "name"], "Новость"))}">
+          <img src="${resolveImage(n, seed(n))}" alt="${escapeHtml(pick(n, ["title", "name"], "News"))}">
           <div class="news-body">
-            <h4>${escapeHtml(pick(n, ["title", "name"], "Новость"))}</h4>
+            <h4>${escapeHtml(pick(n, ["title", "name"], "News"))}</h4>
             <p>${escapeHtml(pick(n, ["excerpt", "summary", "content", "body"], "").toString().slice(0, 90))}${pick(n, ["excerpt","summary","content","body"],"").length > 90 ? "…" : ""}</p>
             <div class="news-foot">
               <a href="news.html" class="read-more">${__("readMore")}</a>

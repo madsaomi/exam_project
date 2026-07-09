@@ -9,7 +9,7 @@ class AboutContent(models.Model):
 
     class Meta:
         verbose_name = 'about content'
-        verbose_name_plural = 'about content'
+        verbose_name_plural = 'about contents'
 
     def __str__(self):
         return self.title

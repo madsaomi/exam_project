@@ -1,5 +1,6 @@
 (async function () {
   const wrap = document.getElementById("about-content");
+  if (!wrap) return;
   try {
     const about = await AboutAPI.get();
     const data = Array.isArray(about) ? about[0] : (about && about.results ? about.results[0] : about);
@@ -20,10 +21,10 @@
     wrap.innerHTML = `
       ${title ? `<h3 style="margin-bottom:20px;">${escapeHtml(title)}</h3>` : ""}
       ${paragraphs || `<p>${__("noAbout")}</p>`}
-      <img src="${image ? resolveImage(data, "about") : "https://picsum.photos/seed/londongrill-about/900/600"}" alt="О ресторане">
+      <img src="${image ? resolveImage(data, "about") : "https://picsum.photos/seed/londongrill-about/900/600"}" alt="About">
     `;
   } catch (e) {
     wrap.innerHTML = `<p>${__("loading")}: ${escapeHtml(e.message)}</p>
-      <img src="https://picsum.photos/seed/londongrill-about/900/600" alt="О ресторане">`;
+      <img src="https://picsum.photos/seed/londongrill-about/900/600" alt="About">`;
   }
 })();

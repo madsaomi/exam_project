@@ -19,7 +19,7 @@
         msg.classList.add("ok");
         setTimeout(() => (window.location.href = "index.html"), 700);
       } catch (err) {
-        msg.textContent = err.message || __("password");
+        msg.textContent = err.message || "Login failed";
         msg.classList.add("err");
       } finally {
         btn.disabled = false;
@@ -37,8 +37,14 @@
       msg.textContent = "";
       msg.className = "form-msg";
 
-      if (registerForm.password.value !== registerForm.password2.value) {
-        msg.textContent = __("confirmDelete");
+      const pw = registerForm.password.value;
+      if (pw !== registerForm.password2.value) {
+        msg.textContent = "Passwords do not match";
+        msg.classList.add("err");
+        return;
+      }
+      if (pw.length < 8) {
+        msg.textContent = "Password must be at least 8 characters";
         msg.classList.add("err");
         return;
       }
@@ -55,7 +61,7 @@
         msg.classList.add("ok");
         setTimeout(() => (window.location.href = "login.html"), 900);
       } catch (err) {
-        msg.textContent = err.message || __("register").toLowerCase();
+        msg.textContent = err.message || "Registration failed";
         msg.classList.add("err");
       } finally {
         btn.disabled = false;

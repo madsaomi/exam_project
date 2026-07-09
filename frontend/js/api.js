@@ -57,13 +57,18 @@ async function apiRequest(path, { method = "GET", body = null, auth = false, isR
   }
 
   let data = null;
-  const text = await response.text();
+  let text = "";
+  try { text = await response.text(); } catch (e) { text = ""; }
   try { data = text ? JSON.parse(text) : null; } catch (e) { data = text; }
 
   if (!response.ok) {
-    const message = (data && (data.detail || data.message)) ||
-      (data && typeof data === "object" ? Object.values(data).flat().join(" ") : "Ошибка запроса");
-    const err = new Error(message || `Ошибка ${response.status}`);
+    let message = `Error ${response.status}`;
+    if (data && typeof data === "object") {
+      message = data.detail || data.message || Object.values(data).flat().filter(Boolean).join(" ") || message;
+    } else if (typeof data === "string") {
+      message = data;
+    }
+    const err = new Error(message);
     err.status = response.status;
     err.data = data;
     throw err;
@@ -77,9 +82,10 @@ async function refreshAccessToken() {
     const data = await apiRequest(ENDPOINTS.refresh, {
       method: "POST",
       body: { refresh: Auth.getRefresh() },
+      auth: false,
     });
     if (data && data.access) {
-      Auth.set(data.access, null);
+      Auth.set(data.access, data.refresh || Auth.getRefresh());
       return true;
     }
   } catch (e) { /* fall through */ }

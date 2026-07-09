@@ -11,8 +11,8 @@
   let shown = 0;
 
   function openModal(item) {
-    const img = resolveImage(item, pick(item, ["id"], Math.random()));
-    const title = escapeHtml(pick(item, ["title", "name"], "Новость"));
+    const img = resolveImage(item, seed(item));
+    const title = escapeHtml(pick(item, ["title", "name"], "News"));
     const date = formatDate(pick(item, ["created_at", "date", "published_at"], ""));
     const full = escapeHtml(pick(item, ["content", "body", "excerpt", "summary"], ""));
     modalImg.src = img;
@@ -34,8 +34,8 @@
     next.forEach((n) => {
       const card = document.createElement("div");
       card.className = "news-card";
-      const img = resolveImage(n, pick(n, ["id"], Math.random()));
-      const title = escapeHtml(pick(n, ["title", "name"], "Новость"));
+      const img = resolveImage(n, seed(n));
+      const title = escapeHtml(pick(n, ["title", "name"], "News"));
       const excerpt = escapeHtml(pick(n, ["excerpt", "summary", "content", "body"], "").toString().slice(0, 110));
       const hasMore = pick(n, ["excerpt", "summary", "content", "body"], "").length > 110;
       const date = formatDate(pick(n, ["created_at", "date", "published_at"], ""));

@@ -11,7 +11,7 @@ REST API для сайта ресторана "London Project".
 
 ### Технологии
 
-- Django 5+
+- Django 6+
 - Django REST Framework
 - JWT (SimpleJWT)
 - drf-spectacular (Swagger/ReDoc)
@@ -96,7 +96,7 @@ Amalga oshirilgan: menyu (kategoriyalar + taomlar), yangiliklar, aloqa formasi, 
 
 ### Texnologiyalar
 
-- Django 5+
+- Django 6+
 - Django REST Framework
 - JWT (SimpleJWT)
 - drf-spectacular (Swagger/ReDoc)

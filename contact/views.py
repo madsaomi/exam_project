@@ -13,7 +13,9 @@ class ContactMessageListCreateView(generics.ListCreateAPIView):
     def get_permissions(self):
         if self.request.method == 'GET':
             return [permissions.IsAdminUser()]
-        return [permissions.AllowAny()]
+        elif self.request.method == 'POST':
+            return [permissions.AllowAny()]
+        return [permissions.IsAdminUser()]
 
 
 class ContactMessageRetrieveView(generics.RetrieveAPIView):

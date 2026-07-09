@@ -8,6 +8,7 @@ class AboutContentRetrieveUpdateView(generics.RetrieveUpdateAPIView):
     queryset = AboutContent.objects.all()
     serializer_class = AboutContentSerializer
     permission_classes = (IsAdminOrReadOnly,)
+    lookup_field = None
 
     def get_object(self):
         obj, _ = AboutContent.objects.get_or_create(pk=1)

@@ -173,8 +173,8 @@
 > Вопросы — в чат команды. Каждую выполненную задачу отмечать готово в этом файле.
 
 ---
-#https://www.figma.com/design/nxbT73EVpP2spkWwjLO2E3/%F0%9F%8D%94London?node-id=0-1&p=f&t=yaigVQ7AyK18DXRI-0
-#figma link
+https://www.figma.com/design/nxbT73EVpP2spkWwjLO2E3/%F0%9F%8D%94London?node-id=0-1&p=f&t=yaigVQ7AyK18DXRI-0
+<!-- figma link -->
 ---
 
 ## 🇺🇿 O'zbekcha bo'lim

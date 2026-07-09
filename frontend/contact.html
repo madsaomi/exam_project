@@ -75,14 +75,14 @@
         <p>If you have any questions, you can send us an SMS or contact us by phone, you can also contact us via social networks.</p>
         <form id="contact-form">
           <div class="form-row">
-            <input class="field" type="text" name="name" placeholder="Your name" required>
-            <input class="field" type="email" name="email" placeholder="Email address" required>
+            <input class="field" type="text" name="name" data-i18n-placeholder="name" placeholder="Your name" required>
+            <input class="field" type="email" name="email" data-i18n-placeholder="email" placeholder="Email address" required>
           </div>
           <div class="form-row">
             <input class="field" type="tel" name="phone" placeholder="Phone number">
             <input class="field" type="text" name="subject" placeholder="Subject" required>
           </div>
-          <textarea class="field" name="message" placeholder="Message" required></textarea>
+          <textarea class="field" name="message" data-i18n-placeholder="message" placeholder="Message" required></textarea>
           <button type="submit" class="btn btn-primary" id="contact-submit">Send message</button>
           <div class="form-msg" id="contact-msg"></div>
         </form>
@@ -94,11 +94,11 @@
 <section class="section-alt">
   <div class="container">
     <div class="section-head">
-      <h2 style="font-size:30px;" data-i18n="mapTitle">Find Us By Card</h2>
+      <h2 style="font-size:30px;" data-i18n="mapTitle">Find Us On The Map</h2>
     </div>
     <div class="map-wrap">
       <iframe
-        src="https://www.openstreetmap.org/export/embed.html?bbox=59.590%2C42.440%2C59.630%2C42.470&layer=mapnik&marker=42.455%2C59.610"
+        src="https://www.openstreetmap.org/export/embed.html?bbox=-0.136%2C51.498%2C-0.116%2C51.518&layer=mapnik&marker=51.508%2C-0.126"
         loading="lazy" title="Карта расположения"></iframe>
     </div>
   </div>

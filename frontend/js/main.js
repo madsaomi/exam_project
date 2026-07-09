@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- newsletter form (any page) ---------- */
   document.querySelectorAll("[data-newsletter-form]").forEach((form) => {
+    if (form.dataset.newsletterBound) return;
+    form.dataset.newsletterBound = "true";
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       const emailInput = form.querySelector("input[type=email]");
@@ -83,6 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+/* ---------- stable seed for placeholder images ---------- */
+function seed(obj) { return String(pick(obj, ["name", "title", "id"], Math.random())); }
 
 /* ---------- tiny html-escape helper reused by page scripts ---------- */
 function escapeHtml(str) {

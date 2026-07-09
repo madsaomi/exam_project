@@ -281,9 +281,9 @@ footer a:hover { color: var(--accent); }
 <header>
   <h1>🍔 LONDON<span>PROJECT</span></h1>
   <div class="lang-buttons">
-    <button onclick="setLang('ru')" class="active" id="btn-ru">RU</button>
-    <button onclick="setLang('en')" id="btn-en">EN</button>
-    <button onclick="setLang('uz')" id="btn-uz">UZ</button>
+    <button class="lang-btn active" data-lang="ru" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" data-lang="uz" onclick="setLang('uz')">UZ</button>
   </div>
 </header>
 
@@ -391,9 +391,9 @@ footer a:hover { color: var(--accent); }
 
   <a href="/admin/" target="_blank" class="card">
     <h3>🔐 Django Admin</h3>
-    <p data-lang="ru" class="active-block">Панель управления. Логин: <b>admin</b>, пароль: <b>admin123</b></p>
-    <p data-lang="en">Admin panel. Login: <b>admin</b>, password: <b>admin123</b></p>
-    <p data-lang="uz">Boshqaruv paneli. Login: <b>admin</b>, parol: <b>admin123</b></p>
+    <p data-lang="ru" class="active-block">Панель управления. Логин: <b>admin</b></p>
+    <p data-lang="en">Admin panel. Login: <b>admin</b></p>
+    <p data-lang="uz">Boshqaruv paneli. Login: <b>admin</b></p>
     <div class="links"><span class="dot gray"></span> /admin/</div>
   </a>
 
@@ -484,8 +484,8 @@ footer a:hover { color: var(--accent); }
 
 <script>
 function setLang(lang) {
-  document.querySelectorAll('.lang-buttons button').forEach(b => b.classList.remove('active'));
-  document.getElementById('btn-' + lang).classList.add('active');
+  localStorage.setItem("lang", lang);
+  document.querySelectorAll('.lang-buttons button').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
   document.querySelectorAll('[data-lang]').forEach(el => {
     el.classList.remove('active', 'active-block', 'active-flex', 'active-grid');
     if (el.getAttribute('data-lang') === lang) {
@@ -501,7 +501,7 @@ function setLang(lang) {
 
 async function checkStatus() {
   try {
-    const r = await fetch('/frontend/index.html', { method: 'HEAD', mode: 'no-cors' });
+    const r = await fetch('/api/', { method: 'HEAD' });
     document.getElementById('dot-frontend').className = 'dot green';
   } catch(e) {
     document.getElementById('dot-frontend').className = 'dot red';

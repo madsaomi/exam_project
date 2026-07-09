@@ -25,6 +25,8 @@ const i18n = {
     email: "Email Address",
     message: "Your Message",
     name: "Your Name",
+    phone: "Phone number",
+    subject: "Subject",
     contactSuccess: "Thank you! Your message has been sent.",
     contactError: "Failed to send message. Please try again.",
     loginTitle: "Welcome Back",
@@ -56,11 +58,6 @@ const i18n = {
     emptyCategories: "No categories yet.",
     loggedInAs: "Logged in as",
     registerSuccess: "Registration successful! You can now log in.",
-    dishAdded: "Dish added",
-    dishUpdated: "Dish updated",
-    dishDeleted: "Dish deleted",
-    confirmDelete: "Are you sure?",
-    submitReview: "Submit Review",
     testimonialsTitle: "Happy Customers",
     galleryTitle: "Photo Gallery",
     formTitle: "Send Message",
@@ -91,6 +88,8 @@ const i18n = {
     email: "Email",
     message: "Ваше сообщение",
     name: "Ваше имя",
+    phone: "Номер телефона",
+    subject: "Тема",
     contactSuccess: "Спасибо! Ваше сообщение отправлено.",
     contactError: "Ошибка отправки. Попробуйте снова.",
     loginTitle: "С возвращением",
@@ -122,11 +121,6 @@ const i18n = {
     emptyCategories: "Категорий пока нет.",
     loggedInAs: "Вы вошли как",
     registerSuccess: "Регистрация успешна! Теперь вы можете войти.",
-    dishAdded: "Блюдо добавлено",
-    dishUpdated: "Блюдо обновлено",
-    dishDeleted: "Блюдо удалено",
-    confirmDelete: "Вы уверены?",
-    submitReview: "Оставить отзыв",
     testimonialsTitle: "Счастливые клиенты",
     galleryTitle: "Фотогалерея",
     formTitle: "Отправить сообщение",
@@ -157,6 +151,8 @@ const i18n = {
     email: "Email",
     message: "Xabaringiz",
     name: "Ismingiz",
+    phone: "Telefon raqami",
+    subject: "Mavzu",
     contactSuccess: "Rahmat! Xabaringiz yuborildi.",
     contactError: "Xatolik yuz berdi. Qayta urinib ko'ring.",
     loginTitle: "Xush kelibsiz",
@@ -188,11 +184,6 @@ const i18n = {
     emptyCategories: "Hali kategoriyalar yo'q.",
     loggedInAs: "Siz sifatida kirdingiz",
     registerSuccess: "Ro'yxatdan o'tish muvaffaqiyatli! Endi kirishingiz mumkin.",
-    dishAdded: "Taom qo'shildi",
-    dishUpdated: "Taom yangilandi",
-    dishDeleted: "Taom o'chirildi",
-    confirmDelete: "Ishonchingiz komilmi?",
-    submitReview: "Fikr qoldirish",
     testimonialsTitle: "Mamnun mijozlar",
     galleryTitle: "Foto galereya",
     formTitle: "Xabar yuborish",
@@ -202,7 +193,8 @@ const i18n = {
 
 /* ---------- get / set language ---------- */
 function getLang() {
-  return localStorage.getItem("lang") || "en";
+  const lang = localStorage.getItem("lang");
+  return i18n[lang] ? lang : "en";
 }
 
 function setLang(lang) {

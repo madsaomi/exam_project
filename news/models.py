@@ -10,6 +10,7 @@ class NewsArticle(models.Model):
     is_published = models.BooleanField(default=True)
 
     class Meta:
+        verbose_name = 'news article'
         verbose_name_plural = 'news articles'
         ordering = ('-created_at',)
 

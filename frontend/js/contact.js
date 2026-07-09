@@ -2,6 +2,7 @@
   const form = document.getElementById("contact-form");
   const msg = document.getElementById("contact-msg");
   const submitBtn = document.getElementById("contact-submit");
+  if (!form || !msg || !submitBtn) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
