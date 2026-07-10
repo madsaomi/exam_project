@@ -1,12 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
-from django.http import FileResponse, HttpResponse
+from django.http import HttpResponse
 from django.conf import settings
 from django.conf.urls.static import static
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
-from config.settings import BASE_DIR
 from config.page_views import (
     home_view, menu_view, news_list_view, news_detail_view,
     about_view, contact_view, register_view,
@@ -28,17 +27,10 @@ def custom_500(request):
 def custom_403(request, exception):
     return render(request, '403.html', status=403)
 
-def portal_view(request):
-    f = open(BASE_DIR / 'index.html', 'rb')
-    response = FileResponse(f, content_type='text/html; charset=utf-8')
-    response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    response['Pragma'] = 'no-cache'
-    response['Expires'] = '0'
-    return response
 
 urlpatterns = [
     path('health/', healthcheck, name='healthcheck'),
-    path('', portal_view, name='portal'),
+    path('', lambda r: redirect('page-home'), name='portal'),
     path('admin/', admin.site.urls),
 
     # Staff panel
