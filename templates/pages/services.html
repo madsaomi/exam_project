@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Services — London Grill{% endblock %}
+{% block content %}
+<div class="container" style="margin-top: 40px;">
+  <h1 style="margin-bottom: 8px;" data-i18n="services">Services</h1>
+  <p style="color: var(--text-muted); margin-bottom: 32px;" data-i18n="servicesDesc">Manage and explore all sections of London Grill</p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+    <a href="{% url 'admin:index' %}" target="_blank" rel="noopener" class="card" style="display:block; background:var(--bg-card); border:1px solid var(--border-color); border-radius:20px; padding:30px; text-decoration:none; color:inherit;">
+      <div style="font-size:36px; margin-bottom:12px;">⚙️</div>
+      <h3 style="margin-bottom:8px;" data-i18n="djangoAdmin">Django Admin</h3>
+      <p style="font-size:14px; color:var(--text-muted);" data-i18n="djangoAdminDesc">Full database management and user control</p>
+    </a>
+    <a href="{% url 'staff-dashboard' %}" class="card" style="display:block; background:var(--bg-card); border:1px solid var(--border-color); border-radius:20px; padding:30px; text-decoration:none; color:inherit;">
+      <div style="font-size:36px; margin-bottom:12px;">🛠️</div>
+      <h3 style="margin-bottom:8px;" data-i18n="staffPanel">Staff Panel</h3>
+      <p style="font-size:14px; color:var(--text-muted);" data-i18n="staffPanelDesc">Manage categories, dishes, news, and messages</p>
+    </a>
+    <a href="{% url 'swagger-ui' %}" target="_blank" rel="noopener" class="card" style="display:block; background:var(--bg-card); border:1px solid var(--border-color); border-radius:20px; padding:30px; text-decoration:none; color:inherit;">
+      <div style="font-size:36px; margin-bottom:12px;">📖</div>
+      <h3 style="margin-bottom:8px;" data-i18n="apiDocs">API Docs (Swagger)</h3>
+      <p style="font-size:14px; color:var(--text-muted);" data-i18n="apiDocsDesc">Interactive REST API documentation</p>
+    </a>
+    <a href="{% url 'redoc' %}" target="_blank" rel="noopener" class="card" style="display:block; background:var(--bg-card); border:1px solid var(--border-color); border-radius:20px; padding:30px; text-decoration:none; color:inherit;">
+      <div style="font-size:36px; margin-bottom:12px;">📚</div>
+      <h3 style="margin-bottom:8px;" data-i18n="apiRedoc">API Docs (ReDoc)</h3>
+      <p style="font-size:14px; color:var(--text-muted);" data-i18n="apiRedocDesc">Alternative REST API documentation view</p>
+    </a>
+  </div>
+</div>
+{% endblock %}

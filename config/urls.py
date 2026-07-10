@@ -30,11 +30,14 @@ def custom_403(request, exception):
 
 urlpatterns = [
     path('health/', healthcheck, name='healthcheck'),
-    path('', lambda r: redirect('page-home'), name='portal'),
+    path('', home_view, name='home'),
     path('admin/', admin.site.urls),
 
     # Staff panel
     path('staff/', include('staff.urls')),
+
+    # Services page — links to admin, staff, API docs
+    path('services/', lambda r: render(r, 'pages/services.html'), name='services'),
 
     # Template pages
     path('pages/', home_view, name='page-home'),
