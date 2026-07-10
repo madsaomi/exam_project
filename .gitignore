@@ -37,6 +37,9 @@ Thumbs.db
 .docker/
 docker-compose.override.yml
 
+# Logs
+*.log
+
 # Testing
 .coverage
 htmlcov/
