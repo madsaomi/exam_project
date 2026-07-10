@@ -16,9 +16,11 @@ else:
         ALLOWED_HOSTS.append(_railway_url)
 _csrf_raw = config('CSRF_TRUSTED_ORIGINS', default='http://localhost:8000')
 CSRF_TRUSTED_ORIGINS = [h.strip() for h in _csrf_raw.split(',') if h.strip()]
-_railway_origin = config('RAILWAY_PUBLIC_DOMAIN', default='')
-if _railway_origin:
-    CSRF_TRUSTED_ORIGINS.append(f'https://{_railway_origin}')
+_railway_url = config('RAILWAY_PUBLIC_DOMAIN', '') or config('RAILWAY_STATIC_URL', '')
+if _railway_url:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{_railway_url}')
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS.append('https://*.railway.app')
 
 INSTALLED_APPS = [
     'corsheaders',
