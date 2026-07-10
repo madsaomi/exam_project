@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponse
 from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import render
@@ -11,6 +11,10 @@ from config.page_views import (
     home_view, menu_view, news_list_view, news_detail_view,
     about_view, contact_view, register_view,
 )
+
+
+def healthcheck(request):
+    return HttpResponse('ok')
 
 
 def custom_404(request, exception):
@@ -33,6 +37,7 @@ def portal_view(request):
     return response
 
 urlpatterns = [
+    path('health/', healthcheck, name='healthcheck'),
     path('', portal_view, name='portal'),
     path('admin/', admin.site.urls),
 
