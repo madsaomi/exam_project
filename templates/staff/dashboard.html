@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Staff Panel — London Grill{% endblock %}
+{% block content %}
+<div class="container" style="margin-top: 40px;">
+  <h1 style="margin-bottom: 24px;">Staff Panel</h1>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 40px;">
+    <div class="stat" style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:24px; text-align:center;">
+      <div style="font-size:32px; font-weight:700;">{{ categories }}</div>
+      <div style="font-size:13px; color:var(--text-muted);">Categories</div>
+    </div>
+    <div class="stat" style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:24px; text-align:center;">
+      <div style="font-size:32px; font-weight:700;">{{ dishes }}</div>
+      <div style="font-size:13px; color:var(--text-muted);">Dishes</div>
+    </div>
+    <div class="stat" style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:24px; text-align:center;">
+      <div style="font-size:32px; font-weight:700;">{{ news }}</div>
+      <div style="font-size:13px; color:var(--text-muted);">News</div>
+    </div>
+    <div class="stat" style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:16px; padding:24px; text-align:center;">
+      <div style="font-size:32px; font-weight:700;">{{ messages }}</div>
+      <div style="font-size:13px; color:var(--text-muted);">Messages{% if unread %} ({{ unread }} new){% endif %}</div>
+    </div>
+  </div>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+    <a href="{% url 'staff-category-list' %}" class="card" style="display:block; background:var(--bg-card); border:1px solid var(--border-color); border-radius:20px; padding:30px; text-decoration:none; color:inherit;">
+      <h3 style="margin-bottom:8px;">📂 Categories</h3>
+      <p style="font-size:14px; color:var(--text-muted);">Manage menu categories</p>
+    </a>
+    <a href="{% url 'staff-dish-list' %}" class="card" style="display:block; background:var(--bg-card); border:1px solid var(--border-color); border-radius:20px; padding:30px; text-decoration:none; color:inherit;">
+      <h3 style="margin-bottom:8px;">🍽️ Dishes</h3>
+      <p style="font-size:14px; color:var(--text-muted);">Manage dishes and prices</p>
+    </a>
+    <a href="{% url 'staff-news-list' %}" class="card" style="display:block; background:var(--bg-card); border:1px solid var(--border-color); border-radius:20px; padding:30px; text-decoration:none; color:inherit;">
+      <h3 style="margin-bottom:8px;">📰 News</h3>
+      <p style="font-size:14px; color:var(--text-muted);">Manage news articles</p>
+    </a>
+    <a href="{% url 'staff-contact-list' %}" class="card" style="display:block; background:var(--bg-card); border:1px solid var(--border-color); border-radius:20px; padding:30px; text-decoration:none; color:inherit;">
+      <h3 style="margin-bottom:8px;">✉️ Messages</h3>
+      <p style="font-size:14px; color:var(--text-muted);">View contact messages</p>
+    </a>
+    <a href="{% url 'staff-about-edit' %}" class="card" style="display:block; background:var(--bg-card); border:1px solid var(--border-color); border-radius:20px; padding:30px; text-decoration:none; color:inherit;">
+      <h3 style="margin-bottom:8px;">ℹ️ About Page</h3>
+      <p style="font-size:14px; color:var(--text-muted);">Edit about us content</p>
+    </a>
+  </div>
+</div>
+{% endblock %}

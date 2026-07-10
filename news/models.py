@@ -8,6 +8,7 @@ class NewsArticle(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=True)
+    translations = models.JSONField(default=dict, blank=True)
 
     class Meta:
         verbose_name = 'news article'
@@ -16,3 +17,9 @@ class NewsArticle(models.Model):
 
     def __str__(self):
         return self.title
+
+    def _t(self, field, lang='ru'):
+        try:
+            return self.translations.get(lang, {}).get(field, getattr(self, field, ''))
+        except:
+            return getattr(self, field, '')

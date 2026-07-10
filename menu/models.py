@@ -1,10 +1,20 @@
 from django.db import models
 
 
-class Category(models.Model):
+class TranslationMixin:
+    def _t(self, field, lang='ru'):
+        try:
+            return self.translations.get(lang, {}).get(field, getattr(self, field, ''))
+        except:
+            return getattr(self, field, '')
+
+
+class Category(models.Model, TranslationMixin):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField(blank=True)
+    image = models.ImageField(upload_to='categories/', blank=True, null=True)
     order = models.PositiveIntegerField(default=0)
+    translations = models.JSONField(default=dict, blank=True)
 
     class Meta:
         verbose_name = 'category'
@@ -15,7 +25,21 @@ class Category(models.Model):
         return self.name
 
 
-class Dish(models.Model):
+class Testimonial(models.Model, TranslationMixin):
+    name = models.CharField(max_length=255)
+    text = models.TextField()
+    date = models.DateField(auto_now_add=True)
+    order = models.PositiveIntegerField(default=0)
+    translations = models.JSONField(default=dict, blank=True)
+
+    class Meta:
+        ordering = ('order',)
+
+    def __str__(self):
+        return self.name
+
+
+class Dish(models.Model, TranslationMixin):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name='dishes'
     )
@@ -25,6 +49,7 @@ class Dish(models.Model):
     image = models.ImageField(upload_to='dishes/', blank=True, null=True)
     is_available = models.BooleanField(default=True)
     order = models.PositiveIntegerField(default=0)
+    translations = models.JSONField(default=dict, blank=True)
 
     class Meta:
         verbose_name = 'dish'

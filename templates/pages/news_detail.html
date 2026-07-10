@@ -1,26 +1,27 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static localization %}
 
-{% block title %}{{ article.title }} — London Grill{% endblock %}
+{% block title %}{% localized article "title" current_lang %} — London Grill{% endblock %}
 
 {% block content %}
-<div class="container breadcrumb"><a href="{% url 'page-home' %}" data-i18n="home">Home</a> | <a href="{% url 'page-news' %}" data-i18n="news">News</a> | <span class="current">{{ article.title }}</span></div>
+<div class="container breadcrumb"><a href="{% url 'page-home' %}" data-i18n="home">Home</a> | <a href="{% url 'page-news' %}" data-i18n="news">News</a> | <span class="current">{% localized article "title" current_lang %}</span></div>
 
 <section>
   <div class="container" style="max-width:800px;">
     <div class="section-head">
-      <h2 class="section-title">{{ article.title }}</h2>
+      <h2 class="section-title">{% localized article "title" current_lang %}</h2>
       <div class="section-divider"></div>
     </div>
 
     {% if article.image %}
-      <img src="{{ article.image.url }}" alt="{{ article.title }}" style="width:100%; border-radius:14px; margin-bottom:24px;">
+      <img src="{{ article.image.url }}" alt="{% localized article "title" current_lang %}" style="width:100%; border-radius:14px; margin-bottom:24px;">
     {% endif %}
 
     <p style="color:var(--gray); font-size:14px; margin-bottom:24px;">{{ article.created_at|date:"d M Y" }}</p>
 
+    {% localized article "content" current_lang as loc %}
     <div style="font-size:16px; line-height:1.8; color:var(--ink-soft);">
-      {{ article.content|linebreaksbr }}
+      {{ loc|linebreaksbr }}
     </div>
 
     <div style="margin-top:40px;">

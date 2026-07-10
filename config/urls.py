@@ -36,6 +36,9 @@ urlpatterns = [
     path('', portal_view, name='portal'),
     path('admin/', admin.site.urls),
 
+    # Staff panel
+    path('staff/', include('staff.urls')),
+
     # Template pages
     path('pages/', home_view, name='page-home'),
     path('pages/menu/', menu_view, name='page-menu'),

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Messages — Staff{% endblock %}
+{% block content %}
+<div class="container" style="margin-top: 40px;">
+  <h1 style="margin-bottom: 24px;">Contact Messages</h1>
+  <table style="width:100%; border-collapse:collapse;">
+    <tr style="background:rgba(0,0,0,0.05);">
+      <th style="padding:12px 16px; text-align:left;">Name</th>
+      <th style="padding:12px 16px; text-align:left;">Email</th>
+      <th style="padding:12px 16px; text-align:left;">Subject</th>
+      <th style="padding:12px 16px; text-align:left;">Date</th>
+      <th style="padding:12px 16px; text-align:left;">Status</th>
+      <th style="padding:12px 16px; text-align:right;">Actions</th>
+    </tr>
+    {% for m in msgs %}
+    <tr style="border-bottom:1px solid var(--border-color); {% if not m.is_read %}font-weight:600;{% endif %}">
+      <td style="padding:12px 16px;">{{ m.name }}</td>
+      <td style="padding:12px 16px;">{{ m.email }}</td>
+      <td style="padding:12px 16px;">{{ m.subject|default:"—" }}</td>
+      <td style="padding:12px 16px;">{{ m.created_at|date:"Y-m-d H:i" }}</td>
+      <td style="padding:12px 16px;">{{ m.is_read|yesno:"Read,New" }}</td>
+      <td style="padding:12px 16px; text-align:right;"><a href="{% url 'staff-contact-detail' m.pk %}">View</a></td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6" style="padding:24px; text-align:center; color:var(--text-muted);">No messages yet</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

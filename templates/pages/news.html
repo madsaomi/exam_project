@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static localization %}
 
 {% block title %}News — London Grill{% endblock %}
 
@@ -16,13 +16,14 @@
       {% for item in news %}
       <div class="news-card">
         {% if item.image %}
-          <img src="{{ item.image.url }}" alt="{{ item.title }}">
+          <img src="{{ item.image.url }}" alt="{% localized item "title" current_lang %}">
         {% else %}
-          <img src="https://picsum.photos/seed/{{ item.title|urlencode }}/400/260" alt="{{ item.title }}">
+          <img src="https://picsum.photos/seed/{{ item.title|urlencode }}/400/260" alt="{% localized item "title" current_lang %}">
         {% endif %}
         <div class="news-body">
-          <h4>{{ item.title }}</h4>
-          <p>{{ item.content|truncatewords:20 }}</p>
+          <h4>{% localized item "title" current_lang %}</h4>
+          {% localized item "content" current_lang as loc %}
+          <p>{{ loc|truncatewords:20 }}</p>
           <div class="news-foot">
             <a href="{% url 'page-news-detail' item.pk %}" class="read-more" data-i18n="readMore">Read More</a>
             <span class="date">{{ item.created_at|date:"d M Y" }}</span>
@@ -33,6 +34,17 @@
         <div class="empty-note" data-i18n="noNews">No news yet.</div>
       {% endfor %}
     </div>
+    {% if news.paginator.num_pages > 1 %}
+    <div style="display:flex; justify-content:center; gap:10px; margin-top:30px;">
+      {% if news.has_previous %}
+        <a href="?page={{ news.previous_page_number }}" class="btn btn-outline" style="padding:8px 18px;">← Prev</a>
+      {% endif %}
+      <span style="display:flex; align-items:center; font-size:14px; color:var(--gray);">Page {{ news.number }} of {{ news.paginator.num_pages }}</span>
+      {% if news.has_next %}
+        <a href="?page={{ news.next_page_number }}" class="btn btn-outline" style="padding:8px 18px;">Next →</a>
+      {% endif %}
+    </div>
+    {% endif %}
   </div>
 </section>
 

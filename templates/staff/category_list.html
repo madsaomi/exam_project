@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Categories — Staff{% endblock %}
+{% block content %}
+<div class="container" style="margin-top: 40px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+    <h1>Categories</h1>
+    <a href="{% url 'staff-category-create' %}" class="btn btn-primary">+ New Category</a>
+  </div>
+  <table style="width:100%; border-collapse:collapse;">
+    <tr style="background:rgba(0,0,0,0.05);">
+      <th style="padding:12px 16px; text-align:left;">Image</th>
+      <th style="padding:12px 16px; text-align:left;">Name</th>
+      <th style="padding:12px 16px; text-align:left;">Order</th>
+      <th style="padding:12px 16px; text-align:right;">Actions</th>
+    </tr>
+    {% for cat in categories %}
+    <tr style="border-bottom:1px solid var(--border-color);">
+      <td style="padding:12px 16px;">
+        {% if cat.image %}
+          <img src="{{ cat.image.url }}" alt="{{ cat.name }}" style="width:50px; height:50px; object-fit:cover; border-radius:6px;">
+        {% else %}
+          <span style="color:var(--gray);">—</span>
+        {% endif %}
+      </td>
+      <td style="padding:12px 16px;">{{ cat.name }}</td>
+      <td style="padding:12px 16px;">{{ cat.order }}</td>
+      <td style="padding:12px 16px; text-align:right;">
+        <a href="{% url 'staff-category-update' cat.pk %}" style="margin-right:8px;">Edit</a>
+        <a href="{% url 'staff-category-delete' cat.pk %}" style="color:#dc2626;">Delete</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="4" style="padding:24px; text-align:center; color:var(--text-muted);">No categories yet</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

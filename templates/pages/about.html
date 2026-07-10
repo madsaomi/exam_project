@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static localization %}
 
 {% block title %}About Us — London Grill{% endblock %}
 
@@ -14,10 +14,11 @@
     </div>
     <div class="about-content">
       {% if about %}
-        <h3 style="margin-bottom:20px;">{{ about.title }}</h3>
-        {{ about.content|linebreaksbr }}
+        <h3 style="margin-bottom:20px;">{% localized about "title" current_lang %}</h3>
+        {% localized about "content" current_lang as loc %}
+        {{ loc|linebreaksbr }}
         {% if about.image %}
-          <img src="{{ about.image.url }}" alt="{{ about.title }}" style="margin-top:24px; border-radius:14px;">
+          <img src="{{ about.image.url }}" alt="{% localized about "title" current_lang %}" style="margin-top:24px; border-radius:14px;">
         {% endif %}
       {% else %}
         <p data-i18n="noAbout">Information will appear here later.</p>

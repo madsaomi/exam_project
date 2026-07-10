@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Dishes — Staff{% endblock %}
+{% block content %}
+<div class="container" style="margin-top: 40px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
+    <h1>Dishes</h1>
+    <a href="{% url 'staff-dish-create' %}" class="btn btn-primary">+ New Dish</a>
+  </div>
+  <table style="width:100%; border-collapse:collapse;">
+    <tr style="background:rgba(0,0,0,0.05);">
+      <th style="padding:12px 16px; text-align:left;">Name</th>
+      <th style="padding:12px 16px; text-align:left;">Category</th>
+      <th style="padding:12px 16px; text-align:left;">Price</th>
+      <th style="padding:12px 16px; text-align:left;">Available</th>
+      <th style="padding:12px 16px; text-align:right;">Actions</th>
+    </tr>
+    {% for dish in dishes %}
+    <tr style="border-bottom:1px solid var(--border-color);">
+      <td style="padding:12px 16px;">{{ dish.name }}</td>
+      <td style="padding:12px 16px;">{{ dish.category.name }}</td>
+      <td style="padding:12px 16px;">${{ dish.price }}</td>
+      <td style="padding:12px 16px;">{{ dish.is_available|yesno:"✅,❌" }}</td>
+      <td style="padding:12px 16px; text-align:right;">
+        <a href="{% url 'staff-dish-update' dish.pk %}" style="margin-right:8px;">Edit</a>
+        <a href="{% url 'staff-dish-delete' dish.pk %}" style="color:#dc2626;">Delete</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="5" style="padding:24px; text-align:center; color:var(--text-muted);">No dishes yet</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

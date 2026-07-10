@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.core.paginator import Paginator
 
-from menu.models import Category, Dish
+from menu.models import Category, Dish, Testimonial
 from news.models import NewsArticle
 from about.models import AboutContent
 from contact.models import ContactMessage
@@ -14,10 +15,12 @@ def home_view(request):
     categories = Category.objects.all()[:8]
     dishes = Dish.objects.filter(is_available=True)[:8]
     news = NewsArticle.objects.filter(is_published=True)[:3]
+    testimonials = Testimonial.objects.all()[:6]
     return render(request, 'pages/home.html', {
         'categories': categories,
         'dishes': dishes,
         'news': news,
+        'testimonials': testimonials,
     })
 
 
@@ -30,15 +33,27 @@ def menu_view(request, cat_id=None):
         active_category = get_object_or_404(Category, pk=cat_id)
         dishes = dishes.filter(category=active_category)
 
+    search = request.GET.get('q', '').strip()
+    if search:
+        dishes = dishes.filter(name__icontains=search)
+
+    paginator = Paginator(dishes, 12)
+    page = request.GET.get('page', 1)
+    dishes_page = paginator.get_page(page)
+
     return render(request, 'pages/menu.html', {
         'categories': categories,
-        'dishes': dishes,
+        'dishes': dishes_page,
         'active_category': active_category,
+        'search': search,
     })
 
 
 def news_list_view(request):
-    news = NewsArticle.objects.filter(is_published=True)
+    news_list = NewsArticle.objects.filter(is_published=True)
+    paginator = Paginator(news_list, 6)
+    page = request.GET.get('page', 1)
+    news = paginator.get_page(page)
     return render(request, 'pages/news.html', {'news': news})
 
 
@@ -69,8 +84,10 @@ def register_view(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
-            messages.success(request, 'Registration successful!')
+            auth_user = authenticate(username=user.username, password=form.cleaned_data['password'])
+            if auth_user is not None:
+                login(request, auth_user)
+            messages.success(request, '✓')
             return redirect('page-home')
     else:
         form = RegisterForm()

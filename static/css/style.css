@@ -419,6 +419,10 @@ section { padding: 90px 0; }
   background-position: center;
   display: flex; align-items: center; justify-content: center;
   overflow: hidden;
+  background-image: url('https://picsum.photos/seed/london-restaurant/1600/460');
+}
+[data-theme="dark"] .video-band {
+  background-image: url('https://picsum.photos/seed/london-restaurant-dark/1600/460');
 }
 .video-band .play {
   width: 80px; height: 80px;
@@ -428,7 +432,7 @@ section { padding: 90px 0; }
   color: var(--red); font-size: 24px;
   cursor: pointer; transition: all 0.3s ease;
   box-shadow: 0 0 0 10px rgba(255,255,255,0.2);
-  z-index: 2;
+  position: relative; z-index: 2;
 }
 .video-band .play:hover {
   transform: scale(1.1);
@@ -441,10 +445,10 @@ section { padding: 90px 0; }
   z-index: 1;
   display: none;
   object-fit: cover;
-  background: #000;
 }
 .video-band.playing .video-inline { display: block; }
 .video-band.playing { background-image: none !important; }
+.video-band.playing::before { display: none; }
 
 .insta-section .container {
   display: grid;
@@ -725,3 +729,42 @@ textarea.field { resize: vertical; min-height: 130px; margin-bottom: 22px; }
   section { padding: 60px 0; }
   .section-title { font-size: 30px; }
 }
+
+/* ============================================================
+   Dark Theme
+   ============================================================ */
+[data-theme="dark"] {
+  --red: #cf3a4a;
+  --red-dark: #a8202e;
+  --red-darker: #8a1a24;
+  --ink: #f0ece8;
+  --ink-soft: #b8b0aa;
+  --gray: #8a8480;
+  --gray-light: #1e1c1a;
+  --line: #2c2a28;
+  --white: #141210;
+  --shadow: 0 10px 30px rgba(0,0,0,0.4);
+  --shadow-soft: 0 4px 16px rgba(0,0,0,0.3);
+}
+[data-theme="dark"] .site-header { background: var(--red-darker); }
+[data-theme="dark"] .section-alt { background: #1a1816; }
+[data-theme="dark"] .dish-card,
+[data-theme="dark"] .menu-item,
+[data-theme="dark"] .news-card,
+[data-theme="dark"] .testi-card,
+[data-theme="dark"] .contact-form-wrap,
+[data-theme="dark"] .auth-card { background: #1a1816; border-color: var(--line); }
+[data-theme="dark"] .field { background: #1a1816; border-color: var(--line); color: var(--ink); }
+[data-theme="dark"] .field:focus { background: #22201e; }
+[data-theme="dark"] .modal-content { background: #1a1816; color: var(--ink); }
+[data-theme="dark"] .modal-content h2 { color: var(--ink); }
+[data-theme="dark"] .modal-content #modal-body { color: var(--ink-soft); }
+[data-theme="dark"] .video-band .play { background: var(--ink); color: var(--white); }
+[data-theme="dark"] .video-band::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(0,0,0,0.55); z-index: 0;
+}
+[data-theme="dark"] .carousel-arrows button { background: var(--gray-light); border-color: var(--line); color: var(--ink); }
+[data-theme="dark"] .carousel-arrows button:hover { background: var(--red); color: var(--white); }
+[data-theme="dark"] .contact-card { border-color: var(--line); }
+[data-theme="dark"] .contact-card .icon { background: var(--gray-light); }

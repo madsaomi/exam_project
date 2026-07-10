@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load static localization %}
 
 {% block title %}London Grill{% endblock %}
 
@@ -35,11 +35,11 @@
       {% for dish in dishes %}
       <div class="dish-card">
         {% if dish.image %}
-          <img src="{{ dish.image.url }}" alt="{{ dish.name }}">
+          <img src="{{ dish.image.url }}" alt="{% localized dish "name" current_lang %}">
         {% else %}
-          <img src="https://picsum.photos/seed/{{ dish.name|urlencode }}/500/380" alt="{{ dish.name }}">
+          <img src="https://picsum.photos/seed/{{ dish.name|urlencode }}/500/380" alt="{% localized dish "name" current_lang %}">
         {% endif %}
-        <h4>{{ dish.name }}</h4>
+        <h4>{% localized dish "name" current_lang %}</h4>
         <div class="dish-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
         <div class="dish-price">${{ dish.price }}</div>
       </div>
@@ -68,6 +68,14 @@
 </section>
 {% endif %}
 
+<!-- VIDEO BAND -->
+<section class="video-band">
+  <div class="play" id="playBtn">&#9654;</div>
+  <video class="video-inline" id="promoVideo" muted playsinline poster="https://cdn.pixabay.com/video/2015/10/27/1192-143842659_preview.jpg">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+  </video>
+</section>
+
 <!-- TESTIMONIALS -->
 <section class="section-alt">
   <div class="container">
@@ -76,21 +84,19 @@
       <h2 class="section-title" data-i18n="testimonialsTitle">Happy Customers</h2>
     </div>
     <div class="testi-grid">
+      {% for t in testimonials %}
+      <div class="testi-card">
+        <div class="who">{% localized t "name" current_lang %}</div>
+        <p>{% localized t "text" current_lang %}</p>
+        <div class="meta"><span>{{ t.date|date:"d/m/Y" }}</span></div>
+      </div>
+      {% empty %}
       <div class="testi-card">
         <div class="who" data-i18n="testimonial1Name">Maria</div>
         <p data-i18n="testimonial1">A very cozy place...</p>
-        <div class="meta"><span>06/03/2022</span><span>11:15</span></div>
+        <div class="meta"><span>06/03/2022</span></div>
       </div>
-      <div class="testi-card">
-        <div class="who" data-i18n="testimonial2Name">James</div>
-        <p data-i18n="testimonial2">I ordered delivery several times...</p>
-        <div class="meta"><span>02/03/2022</span><span>19:40</span></div>
-      </div>
-      <div class="testi-card">
-        <div class="who" data-i18n="testimonial3Name">Aisha</div>
-        <p data-i18n="testimonial3">Atmosphere, service and taste...</p>
-        <div class="meta"><span>28/02/2022</span><span>13:05</span></div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -141,4 +147,26 @@
     </form>
   </div>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const playBtn = document.getElementById("playBtn");
+  const band = playBtn?.closest(".video-band");
+  const video = document.getElementById("promoVideo");
+  if (playBtn && band && video) {
+    playBtn.addEventListener("click", () => {
+      band.classList.add("playing");
+      playBtn.classList.add("hidden");
+      video.play();
+    });
+    video.addEventListener("click", () => {
+      video.pause();
+      band.classList.remove("playing");
+      playBtn.classList.remove("hidden");
+    });
+  }
+});
+</script>
 {% endblock %}
