@@ -157,5 +157,6 @@ else:
     CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='http://localhost:8000,http://localhost:5500', cast=lambda v: [h.strip() for h in v.split(',')])
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
+    SECURE_REDIRECT_EXEMPT = ['health/']
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
