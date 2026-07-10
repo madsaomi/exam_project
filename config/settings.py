@@ -11,8 +11,14 @@ if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [h.strip() for h in v.split(',')])
+    _railway_url = config('RAILWAY_PUBLIC_DOMAIN', default='')
+    if _railway_url:
+        ALLOWED_HOSTS.append(_railway_url)
 _csrf_raw = config('CSRF_TRUSTED_ORIGINS', default='http://localhost:8000')
 CSRF_TRUSTED_ORIGINS = [h.strip() for h in _csrf_raw.split(',') if h.strip()]
+_railway_origin = config('RAILWAY_PUBLIC_DOMAIN', default='')
+if _railway_origin:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{_railway_origin}')
 
 INSTALLED_APPS = [
     'corsheaders',
