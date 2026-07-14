@@ -18,7 +18,7 @@
         {% if item.image %}
           <img src="{{ item.image.url }}" alt="{% localized item "title" current_lang %}">
         {% else %}
-          <img src="https://picsum.photos/seed/{{ item.title|urlencode }}/400/260" alt="{% localized item "title" current_lang %}">
+          <img src="https://loremflickr.com/400/260/restaurant,food?random={{ item.id }}" alt="{% localized item "title" current_lang %}">
         {% endif %}
         <div class="news-body">
           <h4>{% localized item "title" current_lang %}</h4>

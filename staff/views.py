@@ -43,7 +43,7 @@ def category_create(request):
         form.save()
         messages.success(request, 'Category created')
         return redirect('staff-category-list')
-    return render(request, 'staff/category_form.html', {'form': form, 'title': 'Create Category'})
+    return render(request, 'staff/category_form.html', {'form': form, 'title_key': 'newCategory'})
 
 
 @staff_member_required(login_url='/login/')
@@ -54,7 +54,7 @@ def category_update(request, pk):
         form.save()
         messages.success(request, 'Category updated')
         return redirect('staff-category-list')
-    return render(request, 'staff/category_form.html', {'form': form, 'title': 'Edit Category'})
+    return render(request, 'staff/category_form.html', {'form': form, 'title_key': 'editCategory'})
 
 
 @staff_member_required(login_url='/login/')
@@ -64,7 +64,7 @@ def category_delete(request, pk):
         obj.delete()
         messages.success(request, 'Category deleted')
         return redirect('staff-category-list')
-    return render(request, 'staff/confirm_delete.html', {'obj': obj, 'title': 'Delete Category'})
+    return render(request, 'staff/confirm_delete.html', {'obj': obj, 'title_key': 'deleteCategory'})
 
 
 # === DISHES ===
@@ -82,7 +82,7 @@ def dish_create(request):
         form.save()
         messages.success(request, 'Dish created')
         return redirect('staff-dish-list')
-    return render(request, 'staff/dish_form.html', {'form': form, 'title': 'Create Dish'})
+    return render(request, 'staff/dish_form.html', {'form': form, 'title_key': 'newDish'})
 
 
 @staff_member_required(login_url='/login/')
@@ -93,7 +93,7 @@ def dish_update(request, pk):
         form.save()
         messages.success(request, 'Dish updated')
         return redirect('staff-dish-list')
-    return render(request, 'staff/dish_form.html', {'form': form, 'title': 'Edit Dish'})
+    return render(request, 'staff/dish_form.html', {'form': form, 'title_key': 'editDish'})
 
 
 @staff_member_required(login_url='/login/')
@@ -103,7 +103,7 @@ def dish_delete(request, pk):
         obj.delete()
         messages.success(request, 'Dish deleted')
         return redirect('staff-dish-list')
-    return render(request, 'staff/confirm_delete.html', {'obj': obj, 'title': 'Delete Dish'})
+    return render(request, 'staff/confirm_delete.html', {'obj': obj, 'title_key': 'deleteDish'})
 
 
 # === NEWS ===
@@ -121,7 +121,7 @@ def news_create(request):
         form.save()
         messages.success(request, 'News created')
         return redirect('staff-news-list')
-    return render(request, 'staff/news_form.html', {'form': form, 'title': 'Create News'})
+    return render(request, 'staff/news_form.html', {'form': form, 'title_key': 'newNews'})
 
 
 @staff_member_required(login_url='/login/')
@@ -132,7 +132,7 @@ def news_update(request, pk):
         form.save()
         messages.success(request, 'News updated')
         return redirect('staff-news-list')
-    return render(request, 'staff/news_form.html', {'form': form, 'title': 'Edit News'})
+    return render(request, 'staff/news_form.html', {'form': form, 'title_key': 'editNews'})
 
 
 @staff_member_required(login_url='/login/')
@@ -142,7 +142,7 @@ def news_delete(request, pk):
         obj.delete()
         messages.success(request, 'News deleted')
         return redirect('staff-news-list')
-    return render(request, 'staff/confirm_delete.html', {'obj': obj, 'title': 'Delete News'})
+    return render(request, 'staff/confirm_delete.html', {'obj': obj, 'title_key': 'deleteNews'})
 
 
 # === CONTACT MESSAGES ===
@@ -172,4 +172,4 @@ def about_edit(request):
         form.save()
         messages.success(request, 'About page updated')
         return redirect('staff-dashboard')
-    return render(request, 'staff/about_form.html', {'form': form, 'title': 'Edit About Page'})
+    return render(request, 'staff/about_form.html', {'form': form, 'title_key': 'editAboutPage'})

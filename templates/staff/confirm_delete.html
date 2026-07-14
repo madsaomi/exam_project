@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% block title %}{{ title }}{% endblock %}
+{% block title %}{{ title_key }}{% endblock %}
 {% block content %}
 <div class="container" style="margin-top: 40px; max-width: 500px; text-align:center;">
-  <h1 style="margin-bottom: 16px;">{{ title }}</h1>
-  <p style="margin-bottom: 24px; color:var(--text-muted);">Are you sure you want to delete "{{ obj }}" ?</p>
+  <h1 style="margin-bottom: 16px;" data-i18n="{{ title_key }}"></h1>
+  <p style="margin-bottom: 24px; color:var(--text-muted);"><span data-i18n="deleteConfirm">Are you sure you want to delete</span> "{{ obj }}" ?</p>
   <form method="post">
     {% csrf_token %}
-    <button type="submit" class="btn btn-primary" style="background:#dc2626;">Yes, delete</button>
-    <a href="{% url 'staff-dashboard' %}" class="btn btn-outline">Cancel</a>
+    <button type="submit" class="btn btn-primary" style="background:#dc2626;" data-i18n="yesDelete">Yes, delete</button>
+    <a href="{% url 'staff-dashboard' %}" class="btn btn-outline" data-i18n="cancel">Cancel</a>
   </form>
 </div>
 {% endblock %}

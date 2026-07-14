@@ -15,7 +15,7 @@
     </div>
     <div class="hero-media">
       <div class="plate-ring"></div>
-      <img src="https://picsum.photos/seed/londongrill-hero/500/500" alt="London Grill">
+      <img src="https://loremflickr.com/500/500/steak,grill" alt="London Grill">
     </div>
   </div>
   <div class="hero-scroll" data-i18n="scroll">SCROLL</div>
@@ -37,7 +37,7 @@
         {% if dish.image %}
           <img src="{{ dish.image.url }}" alt="{% localized dish "name" current_lang %}">
         {% else %}
-          <img src="https://picsum.photos/seed/{{ dish.name|urlencode }}/500/380" alt="{% localized dish "name" current_lang %}">
+          <img src="https://loremflickr.com/500/380/food,dish?random={{ dish.id }}" alt="{% localized dish "name" current_lang %}">
         {% endif %}
         <h4>{% localized dish "name" current_lang %}</h4>
         <div class="dish-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
@@ -116,7 +116,7 @@
         {% if item.image %}
           <img src="{{ item.image.url }}" alt="{{ item.title }}">
         {% else %}
-          <img src="https://picsum.photos/seed/{{ item.title|urlencode }}/400/260" alt="{{ item.title }}">
+          <img src="https://loremflickr.com/400/260/restaurant,food?random={{ item.id }}" alt="{{ item.title }}">
         {% endif %}
         <div class="news-body">
           <h4>{{ item.title }}</h4>
