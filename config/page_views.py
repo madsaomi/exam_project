@@ -75,7 +75,10 @@ def contact_view(request):
             messages.success(request, 'Thank you! Your message has been sent.')
             return redirect('page-contact')
     else:
-        form = ContactForm()
+        initial = {}
+        if 'subject' in request.GET:
+            initial['subject'] = request.GET.get('subject')
+        form = ContactForm(initial=initial)
     return render(request, 'pages/contact.html', {'form': form})
 
 

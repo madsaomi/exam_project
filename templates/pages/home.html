@@ -33,15 +33,18 @@
     </div>
     <div class="dish-grid">
       {% for dish in dishes %}
-      <div class="dish-card">
+      <div class="dish-card" style="display: flex; flex-direction: column;">
         {% if dish.image %}
           <img src="{{ dish.image.url }}" alt="{% localized dish "name" current_lang %}">
         {% else %}
           <img src="https://loremflickr.com/500/380/food,dish?random={{ dish.id }}" alt="{% localized dish "name" current_lang %}">
         {% endif %}
-        <h4>{% localized dish "name" current_lang %}</h4>
-        <div class="dish-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
-        <div class="dish-price">${{ dish.price }}</div>
+        <div style="flex-grow: 1;">
+          <h4>{% localized dish "name" current_lang %}</h4>
+          <div class="dish-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+          <div class="dish-price">${{ dish.price }}</div>
+        </div>
+        <a href="{% url 'page-contact' %}?subject=Order:%20{{ dish.name|urlencode }}" class="btn btn-primary" style="margin-top: 15px; width: 100%; display: block; text-align: center; border-radius: 30px; font-size: 14px;" data-i18n="orderNow">Order Now</a>
       </div>
       {% endfor %}
     </div>

@@ -129,6 +129,7 @@ const i18n = {
     cancel: "Cancel",
     deleteConfirm: "Are you sure you want to delete",
     yesDelete: "Yes, delete",
+    orderNow: "Order Now",
   },
   ru: {
     login: "Войти",
@@ -259,6 +260,7 @@ const i18n = {
     cancel: "Отмена",
     deleteConfirm: "Вы уверены, что хотите удалить",
     yesDelete: "Да, удалить",
+    orderNow: "Заказать",
   },
   uz: {
     login: "Kirish",
@@ -389,6 +391,7 @@ const i18n = {
     cancel: "Bekor qilish",
     deleteConfirm: "O'chirishni xohlaysizmi",
     yesDelete: "Ha, o'chirish",
+    orderNow: "Buyurtma berish",
   }
 };
 
