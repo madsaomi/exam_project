@@ -15,3 +15,6 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f'{self.name} - {self.subject or "Без темы"} ({self.created_at})'
+
+# Import signals to connect them
+import contact.signals
